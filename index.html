@@ -135,7 +135,6 @@
       display: flex;
       flex-direction: column;
       cursor: pointer;
-      backdrop-filter: blur(0px);
     }
 
     .laptop-card:active {
@@ -148,15 +147,25 @@
       border-color: #cde0cf;
     }
 
+    /* FIXED: Image container to ensure full visibility without cropping */
+    .image-wrapper {
+      width: 100%;
+      background: #f9fbf7;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+    }
+
     .laptop-image {
       width: 100%;
-      aspect-ratio: 4 / 3;
+      height: 100%;
       object-fit: contain;
-      background: #f9fbf7;
-      margin-bottom: 12px;
-      border-radius: 20px;
-      padding: 8px;
       transition: transform 0.2s;
+      background: #f9fbf7;
     }
 
     .laptop-name {
@@ -229,7 +238,7 @@
       letter-spacing: 0.3px;
     }
 
-    /* Modal Styling - refined */
+    /* Modal Styling - image full visibility fix */
     .modal {
       display: none;
       position: fixed;
@@ -295,11 +304,15 @@
       overflow: hidden;
       background: #f2f7ef;
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+      aspect-ratio: 16 / 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .slider-image {
       width: 100%;
-      aspect-ratio: 16 / 10;
+      height: 100%;
       object-fit: contain;
       background: #fafdf7;
       display: block;
@@ -521,9 +534,8 @@
         padding: 14px;
       }
       
-      .laptop-image {
+      .image-wrapper {
         aspect-ratio: 4 / 3;
-        padding: 4px;
       }
       
       .laptop-name {
@@ -546,8 +558,8 @@
         font-size: 20px;
       }
       
-      .slider-image {
-        aspect-ratio: 4 / 3;
+      .slider-container {
+        aspect-ratio: 16 / 10;
       }
       
       .contact-btn {
@@ -580,7 +592,7 @@
 
 </div>
 
-<!-- Modal with Image Slider (fully responsive) -->
+<!-- Modal with Image Slider (full image visibility) -->
 <div id="imageModal" class="modal">
   <div class="modal-content">
     <span class="close-modal">&times;</span>
@@ -612,7 +624,7 @@
 </div>
 
 <script>
-  // ---------- Product Data (including proper image mapping & high-quality placeholders) ----------
+  // ---------- Product Data with improved visibility for all images ----------
   const products = [
     {
       id: 1,
@@ -668,21 +680,22 @@
     }
   ];
 
-  // Fallback image handler: all missing images will get elegant placeholder
-  function applyImageFallback(imgElement, altText) {
+  // Global fallback handler ensures images are always visible without cropping
+  function setImageFallback(imgElement, altText) {
     if (!imgElement) return;
     imgElement.onerror = function() {
       if (!this.dataset.fallbackAttempt) {
         this.dataset.fallbackAttempt = 'true';
-        const productName = altText || 'laptop';
-        const encoded = encodeURIComponent(productName.split(' ')[0]);
-        this.src = `https://placehold.co/600x450/2d6a4f/white?text=${encoded}+Model`;
+        const modelName = altText ? altText.split(' ')[0] : 'Laptop';
+        this.src = `https://placehold.co/600x450/2d6a4f/white?text=${encodeURIComponent(modelName)}+Model`;
+        this.style.objectFit = 'contain';
       }
     };
+    // Force object-fit even if image loads later
+    imgElement.style.objectFit = 'contain';
   }
 
   const phoneNumberRaw = "918055006894";
-  const displayPhone = "+91 80550 06894";
   let currentProduct = null;
   let currentImageIndex = 0;
   let currentProductName = '';
@@ -693,11 +706,7 @@
     return '₹' + price.toLocaleString('en-IN');
   }
 
-  function getSpecsStringForMessage(specsArray) {
-    return specsArray.map(s => `• ${s}`).join('%0A');
-  }
-
-  // Render product grid with robust images
+  // Render product grid with FULL image visibility (using wrapper + contain)
   function renderProducts(searchValue = '') {
     const container = document.getElementById('laptopsContainer');
     if (!container) return;
@@ -712,9 +721,12 @@
     }
     container.innerHTML = filtered.map(product => {
       const thumb = product.thumbnail;
+      const escapedName = product.name.replace(/'/g, "\\'");
       return `
         <div class="laptop-card" onclick="openProductModal(${product.id})">
-          <img src="${thumb}" alt="${product.name}" class="laptop-image" loading="lazy" onerror="this.src='https://placehold.co/500x350/2d6a4f/white?text=${product.name.split(' ')[0]}'">
+          <div class="image-wrapper">
+            <img src="${thumb}" alt="${product.name}" class="laptop-image" loading="lazy" onerror="this.src='https://placehold.co/600x450/2d6a4f/white?text=${product.name.split(' ')[0]}'; this.style.objectFit='contain'">
+          </div>
           <div class="laptop-name">${product.name}</div>
           <div class="specs-list">
             ${product.specs.map(spec => `<div class="spec-item">${spec}</div>`).join('')}
@@ -727,9 +739,14 @@
         </div>
       `;
     }).join('');
+
+    // Apply fallback to all thumbnails after render
+    document.querySelectorAll('.laptop-image').forEach(img => {
+      setImageFallback(img, img.alt);
+    });
   }
 
-  // Update slider + dots + smooth image fallback
+  // Update slider with full image visibility (contain + no crop)
   function updateSlider() {
     if (!currentProduct) return;
     const sliderImg = document.getElementById('sliderImage');
@@ -738,7 +755,8 @@
     const imgSrc = currentProduct.images[currentImageIndex];
     sliderImg.src = imgSrc;
     sliderImg.alt = `${currentProduct.name} view ${currentImageIndex+1}`;
-    applyImageFallback(sliderImg, currentProduct.name);
+    sliderImg.style.objectFit = 'contain';
+    setImageFallback(sliderImg, currentProduct.name);
     
     if (dotsDiv) {
       dotsDiv.innerHTML = currentProduct.images.map((_, idx) => `
@@ -788,7 +806,8 @@
     const fullImg = document.getElementById('fullscreenImage');
     if (fullImg && currentProduct.images[currentImageIndex]) {
       fullImg.src = currentProduct.images[currentImageIndex];
-      applyImageFallback(fullImg, currentProduct.name);
+      fullImg.style.objectFit = 'contain';
+      setImageFallback(fullImg, currentProduct.name);
       fullDiv.style.display = 'block';
     }
   }
@@ -803,14 +822,13 @@
     document.getElementById('fullscreenViewer').style.display = 'none';
   }
 
-  // ----- Contact handlers with dynamic message -----
+  // Contact handlers with dynamic product details
   function makeCall() {
     window.location.href = `tel:+918055006894`;
   }
 
   function sendWhatsApp() {
     if (!currentProduct) {
-      // fallback if modal not fully ready
       window.open(`https://wa.me/${phoneNumberRaw}?text=Hi%2C%20I'm%20interested%20in%20laptops%20from%20Second%20Life%20Computers.`, '_blank');
       return;
     }
@@ -820,7 +838,6 @@
     window.open(waUrl, '_blank');
   }
 
-  // attach modal buttons dynamically (also ensure proper rebinding)
   function bindModalActions() {
     const callBtn = document.getElementById('callNowBtn');
     const waBtn = document.getElementById('whatsappNowBtn');
@@ -842,7 +859,7 @@
     }
   }
 
-  // Touch swipe for slider container
+  // Touch swipe for slider
   let touchStartX = 0, touchEndX = 0;
   function handleTouchStart(e) {
     touchStartX = e.changedTouches[0].clientX;
@@ -866,7 +883,7 @@
     }
   }
 
-  // Global exposure for inline onclick
+  // Expose global functions for inline handlers
   window.changeImage = changeImage;
   window.goToImage = goToImage;
   window.openProductModal = openProductModal;
@@ -874,9 +891,9 @@
   window.makeCall = makeCall;
   window.sendWhatsApp = sendWhatsApp;
 
-  // Setup initial event listeners after DOM ready
   document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
+    
     const searchInput = document.getElementById('searchInput');
     let debounceTimer;
     searchInput.addEventListener('input', (e) => {
@@ -906,27 +923,21 @@
     
     bindModalActions();
     attachSliderTouchEvents();
-    setInterval(() => {
+    
+    // MutationObserver to rebind when modal opens
+    const observer = new MutationObserver(() => {
       if (document.getElementById('imageModal').style.display === 'block') {
         bindModalActions();
         attachSliderTouchEvents();
+        const sliderImgInline = document.getElementById('sliderImage');
+        if (sliderImgInline && !sliderImgInline.getAttribute('data-full-listener')) {
+          sliderImgInline.setAttribute('data-full-listener', 'true');
+          sliderImgInline.onclick = openFullscreenFromSlider;
+        }
       }
-    }, 300);
+    });
+    observer.observe(document.getElementById('imageModal'), { attributes: true, attributeFilter: ['style'] });
   });
-  
-  // on each modal open refresh binding (to ensure slider and contact work)
-  const observer = new MutationObserver(() => {
-    if (document.getElementById('imageModal').style.display === 'block') {
-      bindModalActions();
-      attachSliderTouchEvents();
-      const sliderImgInline = document.getElementById('sliderImage');
-      if (sliderImgInline && !sliderImgInline.getAttribute('data-full-listener')) {
-        sliderImgInline.setAttribute('data-full-listener', 'true');
-        sliderImgInline.onclick = openFullscreenFromSlider;
-      }
-    }
-  });
-  observer.observe(document.getElementById('imageModal'), { attributes: true, attributeFilter: ['style'] });
 </script>
 </body>
 </html>
