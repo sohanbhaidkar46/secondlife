@@ -178,7 +178,6 @@
       padding-left: 10px;
     }
 
-    /* Full specifications grid on card */
     .specs-container {
       margin-bottom: 12px;
       flex: 1;
@@ -256,7 +255,6 @@
       align-self: flex-start;
     }
 
-    /* Modal Styles */
     .modal {
       display: none;
       position: fixed;
@@ -657,7 +655,6 @@
 </div>
 
 <script>
-  // Product data with all required specifications visible on card
   let products = [];
   let currentProduct = null;
   let currentImageIndex = 0;
@@ -682,16 +679,26 @@
     imgElement.style.objectFit = 'contain';
   }
 
-  // Load products from external JSON file
   async function loadProducts() {
     try {
       const response = await fetch('products.json');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
       products = data.products;
       renderProducts('');
     } catch (error) {
       console.error('Error loading products:', error);
-      document.getElementById('laptopsContainer').innerHTML = '<div class="no-results">❌ Failed to load products. Make sure products.json file exists in the same folder.</div>';
+      document.getElementById('laptopsContainer').innerHTML = `
+        <div class="no-results">
+          ⚠️ Failed to load products.<br><br>
+          <strong>Solution:</strong> You need to run a local server.<br><br>
+          📁 <strong>Method 1 (Easiest):</strong> Install "Live Server" extension in VS Code, right-click index.html → "Open with Live Server"<br><br>
+          📁 <strong>Method 2:</strong> Run this command in terminal: <code style="background:#e2f3e4; padding:2px 6px; border-radius:8px;">python -m http.server 8000</code><br>
+          Then open: <code style="background:#e2f3e4; padding:2px 6px; border-radius:8px;">http://localhost:8000</code>
+        </div>
+      `;
     }
   }
 
@@ -722,7 +729,6 @@
         </div>
         <div class="laptop-name">${product.name}</div>
         
-        <!-- Complete Specifications on Card -->
         <div class="specs-container">
           <div class="spec-row">
             <span class="spec-label">BRAND</span>
@@ -750,7 +756,6 @@
           </div>
         </div>
         
-        <!-- Price and Stock row -->
         <div class="price-stock-row">
           <span class="price">${formatPrice(product.price)}</span>
           <span class="stock-badge">📦 ${product.stock}</span>
@@ -816,7 +821,7 @@
       • <strong>RAM:</strong> ${currentProduct.ram}<br>
       • <strong>Storage:</strong> ${currentProduct.storage}<br>
       • <strong>Graphics:</strong> ${currentProduct.graphics}<br>
-      • <strong>Screen:</strong> ${currentProduct.screen || '15.6" HD'}<br>
+      • <strong>Screen:</strong> ${currentProduct.screen}<br>
       • <strong>Stock:</strong> ${currentProduct.stock}
     `;
     if (specsContainer) specsContainer.innerHTML = modalSpecsHtml;
@@ -858,7 +863,7 @@
       window.open(`https://wa.me/${phoneNumberRaw}?text=Hi%2C%20I'm%20interested%20in%20laptops%20from%20Second%20Life%20Computers.`, '_blank');
       return;
     }
-    const specsBlock = `Brand: ${currentProduct.brand}%0AModel: ${currentProduct.model}%0AProcessor: ${currentProduct.processor}%0ARAM: ${currentProduct.ram}%0AStorage: ${currentProduct.storage}%0AGraphics: ${currentProduct.graphics}%0AScreen: ${currentProduct.screen || '15.6" HD'}%0AStock: ${currentProduct.stock}`;
+    const specsBlock = `Brand: ${currentProduct.brand}%0AModel: ${currentProduct.model}%0AProcessor: ${currentProduct.processor}%0ARAM: ${currentProduct.ram}%0AStorage: ${currentProduct.storage}%0AGraphics: ${currentProduct.graphics}%0AScreen: ${currentProduct.screen}%0AStock: ${currentProduct.stock}`;
     const message = `Hi! I'm interested in buying: *${currentProduct.name}*%0A%0A📋 *SPECIFICATIONS*:%0A${specsBlock}%0A%0A💰 *PRICE:* ${currentProductPriceFormatted}%0A📦 *Availability:* ${currentProduct.stock}%0A%0ACan you share more details or purchase guidance?`;
     const waUrl = `https://wa.me/${phoneNumberRaw}?text=${message}`;
     window.open(waUrl, '_blank');
