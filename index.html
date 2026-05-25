@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Second Life Computers</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      padding: 20px;
+      min-height: 100vh;
+      background: linear-gradient(180deg, 
+        #000000 0%,
+        #000000 25%,
+        #1a1a1a 60%,
+        #2a2a2a 100%
+      );
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .logo-section {
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: clamp(10px, 3vw, 20px);
+      flex-wrap: wrap;
+    }
+
+    .logo-image {
+      width: clamp(40px, 8vw, 60px);
+      height: clamp(40px, 8vw, 60px);
+      object-fit: contain;
+    }
+
+    .logo-text-container {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .logo-main {
+      font-size: clamp(18px, 5vw, 28px);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .logo-sub {
+      font-size: clamp(10px, 3vw, 13px);
+      font-weight: 600;
+      color: #4a7c59;
+      margin-top: 3px;
+    }
+
+    .find-title {
+      font-size: clamp(18px, 5vw, 28px);
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: clamp(12px, 3vw, 16px) clamp(14px, 4vw, 20px);
+      font-size: clamp(14px, 3.5vw, 16px);
+      border: 1px solid #333;
+      border-radius: 12px;
+      background: #1e1e1e;
+      color: #ffffff;
+      outline: none;
+      margin-bottom: 25px;
+    }
+
+    .search-box:focus {
+      border-color: #2d6a4f;
+      box-shadow: 0 0 0 2px rgba(45, 106, 79, 0.3);
+    }
+
+    .search-box::placeholder {
+      color: #888;
+    }
+
+    .laptops-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .laptops-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .laptops-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 24px;
+      }
+    }
+
+    .laptop-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      border: 1px solid #e0e0e0;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .laptop-card:active {
+      transform: scale(0.98);
+    }
+
+    .laptop-image {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      background: #f5f5f5;
+    }
+
+    .laptop-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a3c2c;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .specs-list {
+      margin-bottom: 8px;
+      flex: 1;
+    }
+
+    .spec-item {
+      font-size: 10px;
+      color: #666;
+      line-height: 1.4;
+      margin-bottom: 3px;
+    }
+
+    .price-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #e0e0e0;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .price {
+      font-size: 15px;
+      font-weight: 700;
+      color: #2d6a4f;
+    }
+
+    .qty {
+      font-size: 10px;
+      color: #888;
+      font-weight: 500;
+    }
+
+    .in-stock-badge {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 9px;
+      font-weight: 600;
+      color: #2d6a4f;
+      background: #e8f5e9;
+      padding: 3px 8px;
+      border-radius: 12px;
+      align-self: flex-start;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 1000;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .modal-content {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 24px;
+      padding: 24px;
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      font-size: 35px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #333;
+      transition: 0.3s;
+      z-index: 10;
+    }
+
+    .close-modal:hover {
+      color: #2d6a4f;
+    }
+
+    .modal-product-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a3c2c;
+      margin-bottom: 20px;
+      padding-right: 30px;
+    }
+
+    .slider-container {
+      position: relative;
+      margin-bottom: 20px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #f5f5f5;
+    }
+
+    .slider-image {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      display: block;
+      cursor: pointer;
+    }
+
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      z-index: 5;
+    }
+
+    .slider-btn:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .prev-btn {
+      left: 10px;
+    }
+
+    .next-btn {
+      right: 10px;
+    }
+
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+      margin-bottom: 20px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ccc;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .dot.active {
+      background: #2d6a4f;
+      width: 25px;
+      border-radius: 10px;
+    }
+
+    .modal-specs {
+      background: #f5f5f5;
+      padding: 16px;
+      border-radius: 12px;
+      margin: 16px 0;
+      line-height: 1.8;
+    }
+
+    .modal-price {
+      font-size: 32px;
+      font-weight: 800;
+      color: #2d6a4f;
+      margin: 16px 0;
+    }
+
+    /* Contact Options Container */
+    .contact-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .contact-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      text-decoration: none;
+    }
+
+    .call-btn {
+      background: #2d6a4f;
+      color: white;
+    }
+
+    .call-btn:hover {
+      background: #1a4d2a;
+    }
+
+    .whatsapp-btn {
+      background: #25D366;
+      color: white;
+    }
+
+    .whatsapp-btn:hover {
+      background: #1da851;
+    }
+
+    .fullscreen-viewer {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.98);
+      z-index: 1100;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .fullscreen-img {
+      max-width: 90%;
+      max-height: 85%;
+      margin-top: 5%;
+      object-fit: contain;
+    }
+
+    .close-fullscreen {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      font-size: 50px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .footer {
+      margin-top: 30px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .footer .logo-main {
+      font-size: clamp(12px, 3vw, 16px);
+      opacity: 0.6;
+      color: #ffffff;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: clamp(30px, 10vw, 60px);
+      background: #ffffff;
+      border-radius: 16px;
+      color: #999;
+      grid-column: span 2;
+    }
+
+    .swipe-hint {
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+      margin-top: 8px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #2d6a4f;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+        overflow-y: scroll;
+      }
+      
+      .laptop-image {
+        height: 110px;
+      }
+      
+      .laptop-name {
+        font-size: 12px;
+      }
+      
+      .spec-item {
+        font-size: 9px;
+      }
+      
+      .price {
+        font-size: 13px;
+      }
+      
+      .in-stock-badge {
+        font-size: 8px;
+        padding: 2px 6px;
+      }
+      
+      .contact-btn {
+        padding: 12px 16px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .slider-image {
+        height: 280px;
+      }
+      
+      .modal-content {
+        padding: 16px;
+      }
+      
+      .modal-product-title {
+        font-size: 20px;
+      }
+      
+      .modal-price {
+        font-size: 24px;
+      }
+      
+      .slider-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="logo-section">
+    <img src="assets/logo/image.png" alt="Second Life Computers Logo" class="logo-image" onerror="this.src='https://placehold.co/200x200/2d6a4f/white?text=Logo'">
+    <div class="logo-text-container">
+      <div class="logo-main">SECOND LIFE COMPUTERS</div>
+      <div class="logo-sub">Renewed And Ready To Use</div>
+    </div>
+  </div>
+
+  <div class="find-title">Find Your Laptop</div>
+
+  <input type="text" id="searchInput" class="search-box" placeholder="Search laptops..." autocomplete="off">
+
+  <div id="laptopsContainer" class="laptops-grid"></div>
+
+  <div class="footer">
+    <div class="logo-main">SECOND LIFE COMPUTERS</div>
+  </div>
+
+</div>
+
+<!-- Modal with Image Slider -->
+<div id="imageModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <div id="modalProductTitle" class="modal-product-title"></div>
+    
+    <div class="slider-container">
+      <button class="slider-btn prev-btn" onclick="changeImage(-1)">&#10094;</button>
+      <img id="sliderImage" class="slider-image" alt="Product image" onclick="openFullscreenFromSlider()">
+      <button class="slider-btn next-btn" onclick="changeImage(1)">&#10095;</button>
+    </div>
+    
+    <div id="sliderDots" class="slider-dots"></div>
+    <div class="swipe-hint">👆 Swipe left or right to see more images</div>
+    
+    <div id="modalSpecs" class="modal-specs"></div>
+    <div id="modalPrice" class="modal-price"></div>
+    
+    <!-- Contact Options -->
+    <div class="contact-options">
+      <button class="contact-btn call-btn" onclick="makeCall()">📞 Call +91 80550 06894</button>
+      <button class="contact-btn whatsapp-btn" onclick="sendWhatsApp()">💬 Chat on WhatsApp +91 80550 06894</button>
+    </div>
+  </div>
+</div>
+
+<!-- Fullscreen Image Viewer -->
+<div id="fullscreenViewer" class="fullscreen-viewer">
+  <span class="close-fullscreen">&times;</span>
+  <img id="fullscreenImage" class="fullscreen-img" alt="Fullscreen view">
+</div>
+
+<script>
+  let currentProduct = null;
+  let currentImageIndex = 0;
+  let currentProductName = '';
+  let currentProductSpecs = '';
+  let currentProductPrice = '';
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  const phoneNumber = "918055006894"; // Without + for WhatsApp API
+  const phoneNumberDisplay = "+91 80550 06894";
+
+  // Product data
+  const products = [
+    {
+      id: 1,
+      name: "Lenovo V130-15",
+      specs: [
+        "Intel Core...",
+        "8GB DDR4 / 480GB...",
+        '15.6" HD'
+      ],
+      price: 18500,
+      thumbnail: "assets/laptop imgs/WhatsApp Image 2026-05-22 at 3.45.29 PM (1).jpeg",
+      images: [
+        "assets/laptop imgs/WhatsApp Image 2026-05-22 at 3.45.29 PM (1).jpeg",
+        "assets/laptop imgs/WhatsApp Image 2026-05-22 at 3.45.29 PM.jpeg",
+        "assets/laptop imgs/WhatsApp Image 2026-05-22 at 3.45.30 PM (1).jpeg",
+        "assets/laptop imgs/WhatsApp Image 2026-05-22 at 3.45.30 PM.jpeg"
+      ]
+    },
+    {
+      id: 2,
+      name: "Lenovo B41 (4GB)",
+      specs: [
+        "AMD A6-7...",
+        "4GB DDR3 / 12GB...",
+        '14" HD'
+      ],
+      price: 11500,
+      thumbnail: "assets/laptop imgs/lenovo-b41.jpg",
+      images: [
+        "assets/laptop imgs/lenovo-b41-1.jpg",
+        "assets/laptop imgs/lenovo-b41-2.jpg",
+        "assets/laptop imgs/lenovo-b41-3.jpg",
+        "assets/laptop imgs/lenovo-b41-4.jpg"
+      ]
+    },
+    {
+      id: 3,
+      name: "Lenovo IP110",
+      specs: [
+        "Intel Core...",
+        "4GB DDR3 / 12GB",
+        '15.6" HD'
+      ],
+      price: 12500,
+      thumbnail: "assets/laptop imgs/lenovo-ip110.jpg",
+      images: [
+        "assets/laptop imgs/lenovo-ip110-1.jpg",
+        "assets/laptop imgs/lenovo-ip110-2.jpg",
+        "assets/laptop imgs/lenovo-ip110-3.jpg",
+        "assets/laptop imgs/lenovo-ip110-4.jpg"
+      ]
+    },
+    {
+      id: 4,
+      name: "Asus X540Y",
+      specs: [
+        "AMD Ryzen 5...",
+        "4GB DDR3 / 12GB",
+        '15.6" HD'
+      ],
+      price: 12000,
+      thumbnail: "assets/laptop imgs/asus-x540y.jpg",
+      images: [
+        "assets/laptop imgs/asus-x540y-1.jpg",
+        "assets/laptop imgs/asus-x540y-2.jpg",
+        "assets/laptop imgs/asus-x540y-3.jpg",
+        "assets/laptop imgs/asus-x540y-4.jpg"
+      ]
+    }
+  ];
+
+  function formatPrice(price) {
+    return '₹' + price.toLocaleString('en-IN');
+  }
+
+  // Function to make call
+  function makeCall() {
+    const message = `Hi, I'm interested in ${currentProductName}\n\nSpecifications:\n${currentProductSpecs}\nPrice: ${currentProductPrice}\n\nPlease provide more details.`;
+    // For mobile devices, tel: opens phone dialer
+    window.location.href = `tel:+918055006894`;
+  }
+
+  // Function to send WhatsApp message with laptop details
+  function sendWhatsApp() {
+    const message = `Hi, I'm interested in buying: ${currentProductName}%0A%0A📋 *SPECIFICATIONS:*%0A${currentProductSpecs}%0A%0A💰 *PRICE:* ${currentProductPrice}%0A%0A📦 *Status:* In Stock%0A%0APlease provide more details about this laptop.`;
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+  }
+
+  function renderProducts(searchValue = '') {
+    const container = document.getElementById('laptopsContainer');
+    if (!container) return;
+
+    let filteredProducts = [...products];
+    
+    if (searchValue.trim() !== '') {
+      const term = searchValue.toLowerCase();
+      filteredProducts = products.filter(product => 
+        product.name.toLowerCase().includes(term)
+      );
+    }
+
+    if (filteredProducts.length === 0) {
+      container.innerHTML = '<div class="no-results">🔍 No laptops found. Try "Lenovo" or "Asus"</div>';
+      return;
+    }
+
+    container.innerHTML = filteredProducts.map(product => `
+      <div class="laptop-card" onclick="openProductModal(${product.id})">
+        <img src="${product.thumbnail}" alt="${product.name}" class="laptop-image" onerror="this.src='https://placehold.co/400x300/2d6a4f/white?text=${product.name.split(' ')[0]}'">
+        <div class="laptop-name">${product.name}</div>
+        <div class="specs-list">
+          ${product.specs.map(spec => `<div class="spec-item">${spec}</div>`).join('')}
+        </div>
+        <div class="price-section">
+          <span class="price">${formatPrice(product.price)}</span>
+          <span class="qty">Qty: 1</span>
+        </div>
+        <div class="in-stock-badge">✓ In Stock</div>
+      </div>
+    `).join('');
+  }
+
+  function updateSlider() {
+    if (!currentProduct) return;
+    
+    const sliderImage = document.getElementById('sliderImage');
+    const dotsContainer = document.getElementById('sliderDots');
+    
+    sliderImage.src = currentProduct.images[currentImageIndex];
+    sliderImage.onerror = function() {
+      this.src = 'https://placehold.co/600x400/2d6a4f/white?text=Image+Not+Found';
+    };
+    
+    dotsContainer.innerHTML = currentProduct.images.map((_, idx) => `
+      <div class="dot ${idx === currentImageIndex ? 'active' : ''}" onclick="goToImage(${idx})"></div>
+    `).join('');
+  }
+
+  function changeImage(direction) {
+    if (!currentProduct) return;
+    
+    currentImageIndex += direction;
+    
+    if (currentImageIndex < 0) {
+      currentImageIndex = currentProduct.images.length - 1;
+    }
+    if (currentImageIndex >= currentProduct.images.length) {
+      currentImageIndex = 0;
+    }
+    
+    updateSlider();
+  }
+
+  function goToImage(index) {
+    if (!currentProduct) return;
+    currentImageIndex = index;
+    updateSlider();
+  }
+
+  function openProductModal(productId) {
+    currentProduct = products.find(p => p.id === productId);
+    if (!currentProduct) return;
+    
+    currentProductName = currentProduct.name;
+    currentProductSpecs = currentProduct.specs.map(s => `• ${s}`).join('%0A');
+    currentProductPrice = formatPrice(currentProduct.price);
+    currentImageIndex = 0;
+    
+    const modal = document.getElementById('imageModal');
+    const modalTitle = document.getElementById('modalProductTitle');
+    const modalSpecs = document.getElementById('modalSpecs');
+    const modalPrice = document.getElementById('modalPrice');
+
+    modalTitle.textContent = currentProduct.name;
+    
+    updateSlider();
+    
+    modalSpecs.innerHTML = currentProduct.specs.map(spec => `• ${spec}`).join('<br>');
+    modalPrice.innerHTML = formatPrice(currentProduct.price);
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function openFullscreenFromSlider() {
+    if (!currentProduct) return;
+    const fullscreenViewer = document.getElementById('fullscreenViewer');
+    const fullscreenImage = document.getElementById('fullscreenImage');
+    fullscreenImage.src = currentProduct.images[currentImageIndex];
+    fullscreenViewer.style.display = 'block';
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('imageModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    currentProduct = null;
+  }
+
+  function closeFullscreen() {
+    const fullscreenViewer = document.getElementById('fullscreenViewer');
+    fullscreenViewer.style.display = 'none';
+  }
+
+  function handleTouchStart(event) {
+    touchStartX = event.touches[0].clientX;
+  }
+
+  function handleTouchEnd(event) {
+    touchEndX = event.changedTouches[0].clientX;
+    const swipeThreshold = 50;
+    
+    if (touchStartX - touchEndX > swipeThreshold) {
+      changeImage(1);
+    }
+    
+    if (touchEndX - touchStartX > swipeThreshold) {
+      changeImage(-1);
+    }
+  }
+
+  // Make functions global for onclick
+  window.makeCall = makeCall;
+  window.sendWhatsApp = sendWhatsApp;
+  window.changeImage = changeImage;
+  window.goToImage = goToImage;
+  window.openProductModal = openProductModal;
+  window.openFullscreenFromSlider = openFullscreenFromSlider;
+
+  document.querySelector('.close-modal').onclick = closeModal;
+  document.querySelector('.close-fullscreen').onclick = closeFullscreen;
+  
+  const sliderContainer = document.querySelector('.slider-container');
+  if (sliderContainer) {
+    sliderContainer.addEventListener('touchstart', handleTouchStart);
+    sliderContainer.addEventListener('touchend', handleTouchEnd);
+  }
+  
+  window.onclick = function(event) {
+    const modal = document.getElementById('imageModal');
+    const fullscreenViewer = document.getElementById('fullscreenViewer');
+    if (event.target === modal) closeModal();
+    if (event.target === fullscreenViewer) closeFullscreen();
+  }
+
+  let searchTimeout;
+  const searchInput = document.getElementById('searchInput');
+  
+  function handleSearch() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      renderProducts(searchInput.value);
+    }, 300);
+  }
+  
+  searchInput.addEventListener('keyup', handleSearch);
+  searchInput.addEventListener('input', handleSearch);
+
+  function setupModalListeners() {
+    const container = document.querySelector('.slider-container');
+    if (container) {
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchend', handleTouchEnd);
+      container.addEventListener('touchstart', handleTouchStart);
+      container.addEventListener('touchend', handleTouchEnd);
+    }
+  }
+  
+  setInterval(setupModalListeners, 100);
+
+  renderProducts();
+</script>
+
+</body>
+</html>
