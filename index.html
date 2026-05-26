@@ -645,7 +645,9 @@
 </div>
 
 <script>
-  // PRODUCT DATA - All specifications included directly in the HTML (no external file needed)
+  // ============================================
+  // PRODUCT DATA - Edit this array to add/remove laptops
+  // ============================================
   const products = [
     {
       id: 1,
@@ -729,6 +731,9 @@
     }
   ];
 
+  // ============================================
+  // APPLICATION LOGIC - Do not edit below unless you know what you're doing
+  // ============================================
   let currentProduct = null;
   let currentImageIndex = 0;
   let currentProductPriceFormatted = '';
@@ -919,6 +924,7 @@
     window.open(waUrl, '_blank');
   }
 
+  // Make functions global for onclick handlers
   window.changeImage = changeImage;
   window.goToImage = goToImage;
   window.openProductModal = openProductModal;
@@ -927,6 +933,7 @@
   window.sendWhatsApp = sendWhatsApp;
   window.closeModal = closeModal;
 
+  // Touch swipe for slider
   let touchStartX = 0, touchEndX = 0;
   function handleTouchStart(e) {
     touchStartX = e.changedTouches[0].clientX;
@@ -950,6 +957,7 @@
     }
   }
 
+  // Initialize everything when page loads
   document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     
