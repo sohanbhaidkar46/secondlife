@@ -2,18 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>Second Life Computers | Refurbished Laptops</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      padding: 20px;
+      padding: 12px;
       min-height: 100vh;
       background: linear-gradient(145deg, #0a0f0c 0%, #121715 40%, #1e2a24 100%);
       overflow-y: auto;
@@ -24,24 +25,24 @@
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 16px;
+      padding: 0 6px;
     }
 
+    /* Compact Header */
     .logo-section {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       display: flex;
       align-items: center;
-      gap: clamp(12px, 3vw, 24px);
+      gap: 10px;
       flex-wrap: wrap;
-      backdrop-filter: blur(2px);
     }
 
     .logo-image {
-      width: clamp(48px, 9vw, 70px);
-      height: clamp(48px, 9vw, 70px);
+      width: 44px;
+      height: 44px;
       object-fit: contain;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-      border-radius: 16px;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+      border-radius: 12px;
     }
 
     .logo-text-container {
@@ -51,211 +52,170 @@
     }
 
     .logo-main {
-      font-size: clamp(20px, 6vw, 32px);
+      font-size: 18px;
       font-weight: 800;
       color: #f5f9f0;
       line-height: 1.2;
       letter-spacing: -0.3px;
-      text-shadow: 0 2px 3px rgba(0,0,0,0.2);
     }
 
     .logo-sub {
-      font-size: clamp(11px, 3.5vw, 14px);
+      font-size: 9px;
       font-weight: 500;
       color: #86bf8c;
-      margin-top: 4px;
-      letter-spacing: 0.4px;
+      margin-top: 2px;
     }
 
     .find-title {
-      font-size: clamp(20px, 6vw, 30px);
+      font-size: 18px;
       font-weight: 600;
       color: #ffffff;
-      margin-bottom: 14px;
-      letter-spacing: -0.2px;
+      margin-bottom: 10px;
     }
 
+    /* Mobile-optimized search */
     .search-box {
       width: 100%;
-      padding: clamp(12px, 3.5vw, 16px) clamp(16px, 5vw, 22px);
-      font-size: clamp(15px, 4vw, 17px);
+      padding: 12px 16px;
+      font-size: 14px;
       border: 1px solid #3a4d3e;
-      border-radius: 60px;
+      border-radius: 40px;
       background: #1e2a24;
       color: #f0f7ed;
       outline: none;
-      margin-bottom: 28px;
-      transition: all 0.2s ease;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      margin-bottom: 18px;
+      -webkit-appearance: none;
     }
 
     .search-box:focus {
       border-color: #5e9b6e;
-      box-shadow: 0 0 0 3px rgba(94, 155, 110, 0.35);
-      background: #1f2f28;
+      box-shadow: 0 0 0 2px rgba(94, 155, 110, 0.3);
     }
 
     .search-box::placeholder {
       color: #8fa891;
-      font-weight: 400;
+      font-size: 13px;
     }
 
+    /* 4 COLUMNS ON MOBILE - COMPACT GRID */
     .laptops-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      margin-bottom: 28px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
     }
 
-    @media (min-width: 640px) {
+    /* Tablet: 3 columns */
+    @media (min-width: 481px) and (max-width: 768px) {
       .laptops-grid {
-        gap: 22px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
       }
     }
 
-    @media (min-width: 900px) {
+    /* Desktop: 2 columns centered */
+    @media (min-width: 769px) {
       .laptops-grid {
         grid-template-columns: repeat(2, 1fr);
-        max-width: 860px;
+        max-width: 700px;
         margin-left: auto;
         margin-right: auto;
-        gap: 28px;
+        gap: 18px;
       }
     }
 
+    /* Ultra compact card - truly mobile friendly */
     .laptop-card {
       background: #ffffff;
-      border-radius: 28px;
-      padding: 16px 14px 14px 14px;
-      box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.2);
-      border: 1px solid #eef3e9;
-      transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
+      border-radius: 14px;
+      padding: 8px 6px 8px 6px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.15s ease;
       cursor: pointer;
+      text-align: center;
     }
 
     .laptop-card:active {
-      transform: scale(0.98);
-    }
-
-    .laptop-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 24px 32px -14px rgba(0, 0, 0, 0.25);
-      border-color: #cde0cf;
+      transform: scale(0.96);
     }
 
     .image-wrapper {
       width: 100%;
       background: #f9fbf7;
-      border-radius: 20px;
-      margin-bottom: 12px;
+      border-radius: 10px;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 1 / 1;
     }
 
     .laptop-image {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      transition: transform 0.2s;
       background: #f9fbf7;
+      padding: 4px;
     }
 
-    .laptop-name {
-      font-size: 16px;
-      font-weight: 800;
-      color: #1f3b2c;
-      margin-bottom: 10px;
-      line-height: 1.3;
-      letter-spacing: -0.2px;
-      border-left: 3px solid #2d6a4f;
-      padding-left: 10px;
-    }
-
-    /* Simplified specs on card - only Brand, Model, Processor */
-    .specs-container {
-      margin-bottom: 12px;
-      flex: 1;
-      background: #f8faf6;
-      border-radius: 18px;
-      padding: 10px 12px;
-    }
-
-    .spec-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 7px 0;
-      border-bottom: 1px solid #e2ecd9;
-    }
-
-    .spec-row:last-child {
-      border-bottom: none;
-    }
-
-    .spec-label {
+    /* Compact text sizing */
+    .card-brand {
+      font-size: 8px;
       font-weight: 700;
-      color: #2d5a44;
-      min-width: 75px;
-      font-size: 10.5px;
+      color: #2d6a4f;
       letter-spacing: 0.3px;
       text-transform: uppercase;
+      margin-bottom: 2px;
     }
 
-    .spec-value {
-      color: #2c3e2f;
-      text-align: right;
-      font-weight: 600;
-      font-size: 11px;
+    .card-model {
+      font-size: 9px;
+      font-weight: 800;
+      color: #1f3b2c;
+      line-height: 1.2;
+      margin-bottom: 3px;
+      white-space: normal;
       word-break: break-word;
-      flex: 1;
-      margin-left: 8px;
+      padding: 0 2px;
     }
 
-    .price-stock-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px solid #e2ecd9;
-    }
-
-    .price {
-      font-size: 20px;
+    .card-price {
+      font-size: 10px;
       font-weight: 800;
       color: #2d6a4f;
-      letter-spacing: -0.2px;
+      margin-bottom: 2px;
     }
 
-    .stock-badge {
-      font-size: 10px;
-      font-weight: 700;
+    .card-processor {
+      font-size: 7px;
+      color: #5a6e5a;
+      font-weight: 500;
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-stock {
+      font-size: 7px;
+      font-weight: 600;
       color: #2b6e4c;
       background: #e2f3e4;
-      padding: 4px 12px;
-      border-radius: 40px;
-      letter-spacing: 0.3px;
-    }
-
-    .in-stock-badge {
       display: inline-block;
-      margin-top: 8px;
-      font-size: 9px;
-      font-weight: 700;
-      color: #2b6e4c;
-      background: #e2f3e4;
-      padding: 4px 12px;
-      border-radius: 40px;
-      align-self: flex-start;
+      padding: 2px 6px;
+      border-radius: 20px;
+      margin-top: 3px;
     }
 
+    /* Tap hint */
+    .tap-hint {
+      font-size: 6px;
+      color: #86bf8c;
+      margin-top: 4px;
+    }
+
+    /* MODAL STYLES - Optimized for mobile touch */
     .modal {
       display: none;
       position: fixed;
@@ -263,64 +223,56 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(8, 12, 9, 0.96);
-      backdrop-filter: blur(8px);
+      background: rgba(8, 12, 9, 0.97);
+      backdrop-filter: blur(10px);
       z-index: 1000;
       overflow-y: auto;
-      padding: 20px;
+      padding: 12px;
     }
 
     .modal-content {
-      max-width: 620px;
-      margin: 30px auto;
+      max-width: 560px;
+      margin: 20px auto;
       background: #ffffff;
-      border-radius: 40px;
-      padding: 26px 24px 32px;
+      border-radius: 32px;
+      padding: 20px 18px 26px;
       position: relative;
-      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
 
     .close-modal {
       position: absolute;
-      top: 20px;
-      right: 24px;
-      font-size: 34px;
+      top: 14px;
+      right: 18px;
+      font-size: 30px;
       font-weight: 400;
       cursor: pointer;
       color: #5b6e5a;
-      transition: 0.2s;
       z-index: 12;
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 60px;
+      border-radius: 50%;
       background: #f0f2ed;
     }
 
-    .close-modal:hover {
-      color: #2d6a4f;
-      background: #e2ede0;
-      transform: scale(1.02);
-    }
-
     .modal-product-title {
-      font-size: 26px;
+      font-size: 20px;
       font-weight: 800;
       color: #1f3f2c;
-      margin-bottom: 18px;
-      padding-right: 45px;
+      margin-bottom: 14px;
+      padding-right: 40px;
       line-height: 1.25;
     }
 
     .slider-container {
       position: relative;
-      margin-bottom: 16px;
-      border-radius: 32px;
+      margin-bottom: 14px;
+      border-radius: 24px;
       overflow: hidden;
       background: #f2f7ef;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
       aspect-ratio: 16 / 10;
       display: flex;
       align-items: center;
@@ -334,22 +286,21 @@
       background: #fafdf7;
       display: block;
       cursor: pointer;
-      transition: opacity 0.2s;
-      padding: 8px;
+      padding: 6px;
     }
 
     .slider-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(30, 40, 32, 0.75);
+      background: rgba(30, 40, 32, 0.7);
       backdrop-filter: blur(4px);
       color: white;
       border: none;
-      width: 42px;
-      height: 42px;
-      border-radius: 60px;
-      font-size: 26px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 20px;
       font-weight: 500;
       cursor: pointer;
       display: flex;
@@ -359,31 +310,21 @@
       z-index: 8;
     }
 
-    .slider-btn:hover {
-      background: #2d6a4f;
-      transform: translateY(-50%) scale(1.02);
-    }
-
-    .prev-btn {
-      left: 12px;
-    }
-
-    .next-btn {
-      right: 12px;
-    }
+    .prev-btn { left: 8px; }
+    .next-btn { right: 8px; }
 
     .slider-dots {
       display: flex;
       justify-content: center;
-      gap: 12px;
-      margin-top: 16px;
-      margin-bottom: 20px;
+      gap: 8px;
+      margin-top: 12px;
+      margin-bottom: 16px;
     }
 
     .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 20px;
+      width: 6px;
+      height: 6px;
+      border-radius: 10px;
       background: #cbdcc4;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -391,74 +332,51 @@
 
     .dot.active {
       background: #2d6a4f;
-      width: 28px;
-      border-radius: 20px;
+      width: 20px;
+      border-radius: 10px;
     }
 
     .modal-specs {
       background: #f5f9f1;
-      padding: 18px 20px;
-      border-radius: 28px;
-      margin: 18px 0;
-      line-height: 1.75;
-      font-size: 14px;
+      padding: 14px 16px;
+      border-radius: 24px;
+      margin: 14px 0;
+      line-height: 1.65;
+      font-size: 13px;
       font-weight: 500;
       color: #2a3e2e;
-      border: 1px solid #e0ecd8;
     }
 
     .modal-price {
-      font-size: 34px;
+      font-size: 28px;
       font-weight: 800;
       color: #2d6a4f;
-      margin: 12px 0 18px 0;
-      letter-spacing: -1px;
+      margin: 10px 0 14px;
     }
 
     .contact-options {
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      margin-top: 18px;
+      gap: 10px;
+      margin-top: 14px;
     }
 
     .contact-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      padding: 15px 20px;
+      gap: 8px;
+      padding: 12px 16px;
       border-radius: 60px;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.25s;
+      transition: all 0.2s;
       border: none;
-      text-decoration: none;
-      letter-spacing: 0.3px;
     }
 
-    .call-btn {
-      background: #1e3f2e;
-      color: white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    .call-btn:hover {
-      background: #0f2b1e;
-      transform: scale(1.01);
-    }
-
-    .whatsapp-btn {
-      background: #25D366;
-      color: white;
-      box-shadow: 0 2px 8px rgba(37, 211, 102, 0.2);
-    }
-
-    .whatsapp-btn:hover {
-      background: #1da851;
-      transform: scale(1.01);
-    }
+    .call-btn { background: #1e3f2e; color: white; }
+    .whatsapp-btn { background: #25D366; color: white; }
 
     .fullscreen-viewer {
       display: none;
@@ -467,127 +385,80 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: #0c0f0b;
+      background: #000000;
       z-index: 1200;
       text-align: center;
       padding: 20px;
     }
 
     .fullscreen-img {
-      max-width: 94%;
-      max-height: 88%;
-      margin-top: 5%;
+      max-width: 95%;
+      max-height: 90%;
+      margin-top: 8%;
       object-fit: contain;
-      border-radius: 24px;
-      box-shadow: 0 0 40px rgba(0,0,0,0.5);
     }
 
     .close-fullscreen {
       position: absolute;
-      top: 24px;
-      right: 32px;
-      font-size: 48px;
-      color: #e2efe0;
-      cursor: pointer;
-      font-weight: 300;
-      transition: 0.2s;
-      background: rgba(0,0,0,0.4);
-      width: 56px;
-      border-radius: 60px;
-    }
-
-    .close-fullscreen:hover {
+      top: 20px;
+      right: 20px;
+      font-size: 40px;
       color: white;
-      background: #2d6a4f;
+      cursor: pointer;
+      background: rgba(0,0,0,0.5);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .footer {
-      margin-top: 45px;
-      padding: 22px;
+      margin-top: 30px;
+      padding: 16px;
       text-align: center;
       border-top: 1px solid #334f3b;
     }
 
     .footer .logo-main {
-      font-size: 14px;
+      font-size: 11px;
       opacity: 0.7;
       color: #cfebcf;
     }
 
     .no-results {
       text-align: center;
-      padding: 48px 24px;
+      padding: 40px 16px;
       background: #ffffffdd;
       backdrop-filter: blur(8px);
-      border-radius: 48px;
+      border-radius: 32px;
       color: #517a5e;
       font-weight: 500;
-      grid-column: span 2;
+      font-size: 13px;
+      grid-column: span 4;
     }
 
     .swipe-hint {
       text-align: center;
-      font-size: 11px;
+      font-size: 10px;
       color: #7d8f7a;
       margin-top: 6px;
-      letter-spacing: 0.3px;
     }
 
-    ::-webkit-scrollbar {
-      width: 5px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #1a241f;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #5b8c69;
-      border-radius: 10px;
-    }
-
-    @media (max-width: 550px) {
-      body {
-        padding: 14px;
-      }
-      
-      .image-wrapper {
-        aspect-ratio: 4 / 3;
-      }
-      
-      .laptop-name {
-        font-size: 14px;
-      }
-      
-      .spec-label {
-        font-size: 9px;
-        min-width: 65px;
-      }
-      
-      .spec-value {
-        font-size: 9.5px;
-      }
-      
-      .price {
-        font-size: 17px;
-      }
-      
-      .modal-content {
-        padding: 20px 16px 24px;
-      }
-      
-      .modal-product-title {
-        font-size: 20px;
-      }
-      
-      .slider-container {
-        aspect-ratio: 16 / 10;
-      }
-      
-      .contact-btn {
-        padding: 12px 14px;
-        font-size: 14px;
-      }
+    /* Extra small devices */
+    @media (max-width: 420px) {
+      body { padding: 8px; }
+      .laptops-grid { gap: 6px; }
+      .laptop-card { padding: 6px 4px; border-radius: 12px; }
+      .card-brand { font-size: 7px; }
+      .card-model { font-size: 8px; }
+      .card-price { font-size: 9px; }
+      .card-processor { font-size: 6px; white-space: normal; line-height: 1.1; }
+      .card-stock { font-size: 6px; padding: 1px 4px; }
+      .tap-hint { font-size: 5px; }
+      .logo-main { font-size: 16px; }
+      .find-title { font-size: 16px; }
     }
   </style>
 </head>
@@ -595,21 +466,21 @@
 <div class="container">
 
   <div class="logo-section">
-    <img src="assets/logo/image.png" alt="Second Life Computers Logo" class="logo-image" onerror="this.src='https://placehold.co/300x300/2d6a4f/white?text=♻️SL'">
+    <img src="assets/logo/image.png" alt="Second Life Computers" class="logo-image" onerror="this.src='https://placehold.co/200x200/2d6a4f/white?text=SL'">
     <div class="logo-text-container">
-      <div class="logo-main">SECOND LIFE COMPUTERS</div>
-      <div class="logo-sub">Renewed • Reliable • Ready to Use</div>
+      <div class="logo-main">SECOND LIFE</div>
+      <div class="logo-sub">Renewed Laptops</div>
     </div>
   </div>
 
-  <div class="find-title">✨ Find Your Perfect Laptop</div>
+  <div class="find-title">🔍 Find Your Laptop</div>
 
-  <input type="text" id="searchInput" class="search-box" placeholder="Search by brand, model, or processor..." autocomplete="off">
+  <input type="text" id="searchInput" class="search-box" placeholder="Search by brand or model..." autocomplete="off">
 
   <div id="laptopsContainer" class="laptops-grid"></div>
 
   <div class="footer">
-    <div class="logo-main">SECOND LIFE COMPUTERS — Quality Refurbished Tech</div>
+    <div class="logo-main">Second Life Computers — Quality Refurbished</div>
   </div>
 
 </div>
@@ -621,13 +492,13 @@
     <div id="modalProductTitle" class="modal-product-title"></div>
     
     <div class="slider-container" id="sliderTouchZone">
-      <button class="slider-btn prev-btn" aria-label="Previous image">&#10094;</button>
-      <img id="sliderImage" class="slider-image" alt="Product preview" loading="lazy">
-      <button class="slider-btn next-btn" aria-label="Next image">&#10095;</button>
+      <button class="slider-btn prev-btn">&#10094;</button>
+      <img id="sliderImage" class="slider-image" alt="Product view">
+      <button class="slider-btn next-btn">&#10095;</button>
     </div>
     
     <div id="sliderDots" class="slider-dots"></div>
-    <div class="swipe-hint">← → Swipe or use arrows to view images</div>
+    <div class="swipe-hint">← → Swipe to see more images</div>
     
     <div id="modalSpecs" class="modal-specs"></div>
     <div id="modalPrice" class="modal-price"></div>
@@ -642,28 +513,28 @@
 <!-- Fullscreen viewer -->
 <div id="fullscreenViewer" class="fullscreen-viewer">
   <span class="close-fullscreen">&times;</span>
-  <img id="fullscreenImage" class="fullscreen-img" alt="Fullscreen view">
+  <img id="fullscreenImage" class="fullscreen-img" alt="Fullscreen">
 </div>
 
 <script>
   // ============================================
-  // PRODUCT DATA - Edit this array to add/remove laptops
+  // PRODUCT DATA - Compact but complete
   // Card shows: Brand, Model, Processor, Price, Stock
-  // RAM, Storage, Graphics are hidden on card but shown in modal when clicked
+  // RAM, Storage, Graphics are in modal only (cleaner card)
   // ============================================
   const products = [
     {
       id: 1,
-      name: "Lenovo V130-15",
+      name: "Lenovo V130",
       brand: "Lenovo",
       model: "V130-15",
-      processor: "Intel Core i3-7020U",
+      processor: "Core i3-7020U",
       ram: "8GB DDR4",
-      storage: "480GB SATA SSD",
-      graphics: "Integrated Intel HD",
+      storage: "480GB SSD",
+      graphics: "Intel HD",
       screen: '15.6" HD',
       price: 18500,
-      stock: "1 available",
+      stock: "1 left",
       thumbnail: "assets/laptop imgs/WhatsApp Image 2026-05-22 at 3.45.29 PM (1).jpeg",
       images: [
         "assets/laptop imgs/WhatsApp Image 2026-05-22 at 3.45.29 PM (1).jpeg",
@@ -679,11 +550,11 @@
       model: "B41",
       processor: "AMD A6-7310",
       ram: "4GB DDR3",
-      storage: "120GB SSD + 500GB HDD",
-      graphics: "AMD Radeon R4",
+      storage: "120GB+500GB",
+      graphics: "Radeon R4",
       screen: '14" HD',
       price: 11500,
-      stock: "2 available",
+      stock: "2 left",
       thumbnail: "assets/laptop imgs/lenovo-b41.jpg",
       images: [
         "assets/laptop imgs/lenovo-b41-1.jpg",
@@ -697,13 +568,13 @@
       name: "Lenovo IP110",
       brand: "Lenovo",
       model: "IP110",
-      processor: "Intel Core i3-5005U",
+      processor: "Core i3-5005U",
       ram: "4GB DDR3",
       storage: "240GB SSD",
-      graphics: "Intel HD 5500",
-      screen: '15.6" HD LED',
+      graphics: "HD 5500",
+      screen: '15.6" LED',
       price: 12500,
-      stock: "3 available",
+      stock: "3 left",
       thumbnail: "assets/laptop imgs/lenovo-ip110.jpg",
       images: [
         "assets/laptop imgs/lenovo-ip110-1.jpg",
@@ -717,13 +588,13 @@
       name: "Asus X540Y",
       brand: "ASUS",
       model: "X540Y",
-      processor: "AMD Ryzen 5 2500U",
+      processor: "Ryzen 5 2500U",
       ram: "4GB DDR4",
-      storage: "120GB SSD + 1TB HDD",
-      graphics: "AMD Radeon Vega 8",
+      storage: "120GB+1TB",
+      graphics: "Vega 8",
       screen: '15.6" HD',
       price: 12000,
-      stock: "1 available",
+      stock: "1 left",
       thumbnail: "assets/laptop imgs/asus-x540y.jpg",
       images: [
         "assets/laptop imgs/asus-x540y-1.jpg",
@@ -734,26 +605,80 @@
     },
     {
       id: 5,
-      name: "Dell Latitude 5480",
+      name: "Dell 5480",
       brand: "Dell",
       model: "Latitude 5480",
-      processor: "Intel Core i5-7300U",
+      processor: "i5-7300U",
       ram: "16GB DDR4",
-      storage: "512GB NVMe SSD",
+      storage: "512GB NVMe",
       graphics: "Intel HD 620",
       screen: '14" FHD',
       price: 22500,
-      stock: "2 available",
+      stock: "2 left",
       thumbnail: "assets/laptop imgs/dell-5480.jpg",
       images: [
         "assets/laptop imgs/dell-5480-1.jpg",
         "assets/laptop imgs/dell-5480-2.jpg"
       ]
+    },
+    {
+      id: 6,
+      name: "HP ProBook",
+      brand: "HP",
+      model: "450 G5",
+      processor: "i5-8250U",
+      ram: "8GB DDR4",
+      storage: "256GB SSD",
+      graphics: "UHD 620",
+      screen: '15.6" FHD',
+      price: 19900,
+      stock: "1 left",
+      thumbnail: "assets/laptop imgs/hp-probook.jpg",
+      images: [
+        "assets/laptop imgs/hp-probook-1.jpg",
+        "assets/laptop imgs/hp-probook-2.jpg"
+      ]
+    },
+    {
+      id: 7,
+      name: "Acer Swift 3",
+      brand: "Acer",
+      model: "Swift 3",
+      processor: "Ryzen 5 4500U",
+      ram: "8GB DDR4",
+      storage: "512GB SSD",
+      graphics: "Radeon",
+      screen: '14" FHD',
+      price: 28900,
+      stock: "1 left",
+      thumbnail: "assets/laptop imgs/acer-swift3.jpg",
+      images: [
+        "assets/laptop imgs/acer-swift3-1.jpg",
+        "assets/laptop imgs/acer-swift3-2.jpg"
+      ]
+    },
+    {
+      id: 8,
+      name: "MSI Modern",
+      brand: "MSI",
+      model: "Modern 14",
+      processor: "i7-10510U",
+      ram: "16GB DDR4",
+      storage: "512GB SSD",
+      graphics: "MX250",
+      screen: '14" FHD',
+      price: 35900,
+      stock: "1 left",
+      thumbnail: "assets/laptop imgs/msi-modern.jpg",
+      images: [
+        "assets/laptop imgs/msi-modern-1.jpg",
+        "assets/laptop imgs/msi-modern-2.jpg"
+      ]
     }
   ];
 
   // ============================================
-  // APPLICATION LOGIC
+  // MOBILE-OPTIMIZED LOGIC
   // ============================================
   let currentProduct = null;
   let currentImageIndex = 0;
@@ -770,8 +695,7 @@
     imgElement.onerror = function() {
       if (!this.dataset.fallbackAttempt) {
         this.dataset.fallbackAttempt = 'true';
-        const modelName = altText ? altText.split(' ')[0] : 'Laptop';
-        this.src = `https://placehold.co/600x450/2d6a4f/white?text=${encodeURIComponent(modelName)}+Model`;
+        this.src = `https://placehold.co/400x400/2d6a4f/white?text=${encodeURIComponent(altText || 'Laptop')}`;
         this.style.objectFit = 'contain';
       }
     };
@@ -794,39 +718,22 @@
     }
     
     if (filtered.length === 0) {
-      container.innerHTML = '<div class="no-results">🔍 No laptops found. Try "Lenovo" or "Asus"</div>';
+      container.innerHTML = '<div class="no-results">🔍 No laptops found. Try "Lenovo" or "Dell"</div>';
       return;
     }
     
-    // Card now shows: Brand, Model, Processor, Price, Stock
-    // RAM, Storage, Graphics are REMOVED from card (they appear only in modal)
+    // Ultra compact card - only essential info visible
     container.innerHTML = filtered.map(product => `
       <div class="laptop-card" onclick="openProductModal(${product.id})">
         <div class="image-wrapper">
-          <img src="${product.thumbnail}" alt="${product.name}" class="laptop-image" loading="lazy" onerror="this.src='https://placehold.co/600x450/2d6a4f/white?text=${product.name.split(' ')[0]}'; this.style.objectFit='contain'">
+          <img src="${product.thumbnail}" alt="${product.brand}" class="laptop-image" loading="lazy" onerror="this.src='https://placehold.co/400x400/2d6a4f/white?text=${product.brand.charAt(0)}'">
         </div>
-        <div class="laptop-name">${product.name}</div>
-        
-        <div class="specs-container">
-          <div class="spec-row">
-            <span class="spec-label">BRAND</span>
-            <span class="spec-value">${product.brand}</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">MODEL</span>
-            <span class="spec-value">${product.model}</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">PROCESSOR</span>
-            <span class="spec-value">${product.processor}</span>
-          </div>
-        </div>
-        
-        <div class="price-stock-row">
-          <span class="price">${formatPrice(product.price)}</span>
-          <span class="stock-badge">📦 ${product.stock}</span>
-        </div>
-        <div class="in-stock-badge">✓ In Stock</div>
+        <div class="card-brand">${product.brand}</div>
+        <div class="card-model">${product.model}</div>
+        <div class="card-price">${formatPrice(product.price)}</div>
+        <div class="card-processor">${product.processor}</div>
+        <div class="card-stock">📦 ${product.stock}</div>
+        <div class="tap-hint">👆 tap</div>
       </div>
     `).join('');
 
@@ -840,9 +747,8 @@
     const sliderImg = document.getElementById('sliderImage');
     const dotsDiv = document.getElementById('sliderDots');
     if (!sliderImg) return;
-    const imgSrc = currentProduct.images[currentImageIndex];
-    sliderImg.src = imgSrc;
-    sliderImg.alt = `${currentProduct.name} view ${currentImageIndex+1}`;
+    sliderImg.src = currentProduct.images[currentImageIndex];
+    sliderImg.alt = `${currentProduct.name}`;
     sliderImg.style.objectFit = 'contain';
     setImageFallback(sliderImg, currentProduct.name);
     
@@ -877,19 +783,18 @@
     const specsContainer = document.getElementById('modalSpecs');
     const priceContainer = document.getElementById('modalPrice');
     
-    if (titleEl) titleEl.innerText = currentProduct.name;
+    if (titleEl) titleEl.innerText = `${found.brand} ${found.model}`;
     
-    // Modal shows ALL specifications including RAM, Storage, Graphics
     const modalSpecsHtml = `
-      <strong>🔧 Complete Specifications</strong><br><br>
-      • <strong>Brand:</strong> ${currentProduct.brand}<br>
-      • <strong>Model:</strong> ${currentProduct.model}<br>
-      • <strong>Processor:</strong> ${currentProduct.processor}<br>
-      • <strong>RAM:</strong> ${currentProduct.ram}<br>
-      • <strong>Storage:</strong> ${currentProduct.storage}<br>
-      • <strong>Graphics:</strong> ${currentProduct.graphics}<br>
-      • <strong>Screen:</strong> ${currentProduct.screen}<br>
-      • <strong>Stock:</strong> ${currentProduct.stock}
+      <strong>⚙️ Full Specifications</strong><br><br>
+      • <strong>Brand:</strong> ${found.brand}<br>
+      • <strong>Model:</strong> ${found.model}<br>
+      • <strong>Processor:</strong> ${found.processor}<br>
+      • <strong>RAM:</strong> ${found.ram}<br>
+      • <strong>Storage:</strong> ${found.storage}<br>
+      • <strong>Graphics:</strong> ${found.graphics}<br>
+      • <strong>Screen:</strong> ${found.screen}<br>
+      • <strong>Stock:</strong> ${found.stock}
     `;
     if (specsContainer) specsContainer.innerHTML = modalSpecsHtml;
     if (priceContainer) priceContainer.innerText = currentProductPriceFormatted;
@@ -906,7 +811,6 @@
     if (fullImg && currentProduct.images[currentImageIndex]) {
       fullImg.src = currentProduct.images[currentImageIndex];
       fullImg.style.objectFit = 'contain';
-      setImageFallback(fullImg, currentProduct.name);
       fullDiv.style.display = 'block';
     }
   }
@@ -922,19 +826,17 @@
   }
 
   function makeCall() {
-    window.location.href = `tel:+918055006894`;
+    window.location.href = 'tel:+918055006894';
   }
 
   function sendWhatsApp() {
     if (!currentProduct) {
-      window.open(`https://wa.me/${phoneNumberRaw}?text=Hi%2C%20I'm%20interested%20in%20laptops%20from%20Second%20Life%20Computers.`, '_blank');
+      window.open(`https://wa.me/${phoneNumberRaw}?text=Hi%2C%20I'm%20interested%20in%20laptops`, '_blank');
       return;
     }
-    // WhatsApp message includes ALL specifications
-    const specsBlock = `Brand: ${currentProduct.brand}%0AModel: ${currentProduct.model}%0AProcessor: ${currentProduct.processor}%0ARAM: ${currentProduct.ram}%0AStorage: ${currentProduct.storage}%0AGraphics: ${currentProduct.graphics}%0AScreen: ${currentProduct.screen}%0AStock: ${currentProduct.stock}`;
-    const message = `Hi! I'm interested in buying: *${currentProduct.name}*%0A%0A📋 *SPECIFICATIONS*:%0A${specsBlock}%0A%0A💰 *PRICE:* ${currentProductPriceFormatted}%0A📦 *Availability:* ${currentProduct.stock}%0A%0ACan you share more details or purchase guidance?`;
-    const waUrl = `https://wa.me/${phoneNumberRaw}?text=${message}`;
-    window.open(waUrl, '_blank');
+    const specsBlock = `${currentProduct.brand} ${currentProduct.model}%0A• Processor: ${currentProduct.processor}%0A• RAM: ${currentProduct.ram}%0A• Storage: ${currentProduct.storage}%0A• Graphics: ${currentProduct.graphics}%0A• Screen: ${currentProduct.screen}%0A• Stock: ${currentProduct.stock}`;
+    const message = `Hi! I'm interested in: *${currentProduct.brand} ${currentProduct.model}*%0A%0A📋 *Specs:*%0A${specsBlock}%0A%0A💰 *Price:* ${currentProductPriceFormatted}%0A📦 *Availability:* ${currentProduct.stock}%0A%0APlease share more details.`;
+    window.open(`https://wa.me/${phoneNumberRaw}?text=${encodeURIComponent(message)}`, '_blank');
   }
 
   window.changeImage = changeImage;
@@ -945,20 +847,14 @@
   window.sendWhatsApp = sendWhatsApp;
   window.closeModal = closeModal;
 
-  let touchStartX = 0, touchEndX = 0;
-  function handleTouchStart(e) {
-    touchStartX = e.changedTouches[0].clientX;
-  }
+  let touchStartX = 0;
+  function handleTouchStart(e) { touchStartX = e.changedTouches[0].clientX; }
   function handleTouchEnd(e) {
-    touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > 45) {
-      if (diff > 0) changeImage(1);
-      else changeImage(-1);
-    }
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? changeImage(1) : changeImage(-1);
   }
 
-  function attachSliderTouchEvents() {
+  function attachEvents() {
     const sliderZone = document.getElementById('sliderTouchZone');
     if (sliderZone) {
       sliderZone.removeEventListener('touchstart', handleTouchStart);
@@ -972,38 +868,27 @@
     renderProducts();
     
     const searchInput = document.getElementById('searchInput');
-    let debounceTimer;
+    let debounce;
     searchInput.addEventListener('input', (e) => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => renderProducts(e.target.value), 280);
+      clearTimeout(debounce);
+      debounce = setTimeout(() => renderProducts(e.target.value), 250);
     });
     
-    const closeModalBtn = document.querySelector('.close-modal');
-    if (closeModalBtn) closeModalBtn.onclick = closeModal;
-    const closeFullBtn = document.querySelector('.close-fullscreen');
-    if (closeFullBtn) closeFullBtn.onclick = closeFullscreen;
+    document.querySelector('.close-modal').onclick = closeModal;
+    document.querySelector('.close-fullscreen').onclick = closeFullscreen;
     
-    window.onclick = (event) => {
-      const modalEl = document.getElementById('imageModal');
-      const fullEl = document.getElementById('fullscreenViewer');
-      if (event.target === modalEl) closeModal();
-      if (event.target === fullEl) closeFullscreen();
+    window.onclick = (e) => {
+      if (e.target === document.getElementById('imageModal')) closeModal();
+      if (e.target === document.getElementById('fullscreenViewer')) closeFullscreen();
     };
     
-    const sliderPrev = document.querySelector('.prev-btn');
-    const sliderNext = document.querySelector('.next-btn');
-    if (sliderPrev) sliderPrev.onclick = (e) => { e.stopPropagation(); changeImage(-1); };
-    if (sliderNext) sliderNext.onclick = (e) => { e.stopPropagation(); changeImage(1); };
+    document.querySelector('.prev-btn').onclick = (e) => { e.stopPropagation(); changeImage(-1); };
+    document.querySelector('.next-btn').onclick = (e) => { e.stopPropagation(); changeImage(1); };
+    document.getElementById('sliderImage').onclick = openFullscreenFromSlider;
+    document.getElementById('callNowBtn').onclick = makeCall;
+    document.getElementById('whatsappNowBtn').onclick = sendWhatsApp;
     
-    const modalSliderImg = document.getElementById('sliderImage');
-    if (modalSliderImg) modalSliderImg.onclick = openFullscreenFromSlider;
-    
-    const callBtn = document.getElementById('callNowBtn');
-    const waBtn = document.getElementById('whatsappNowBtn');
-    if (callBtn) callBtn.onclick = makeCall;
-    if (waBtn) waBtn.onclick = sendWhatsApp;
-    
-    attachSliderTouchEvents();
+    attachEvents();
   });
 </script>
 </body>
