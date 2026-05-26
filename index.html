@@ -1,3 +1,5 @@
+Here is the HTML code that creates a product catalog showing only the brand, model, and price on each card, with no additional specifications visible until you click on a card.
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -167,94 +169,46 @@
       background: #f9fbf7;
     }
 
-    .laptop-name {
-      font-size: 16px;
+    /* Simple info on card - only brand, model, price */
+    .card-info {
+      text-align: center;
+      padding: 8px 0;
+    }
+
+    .card-brand {
+      font-size: 12px;
+      font-weight: 600;
+      color: #2d6a4f;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .card-model {
+      font-size: 15px;
       font-weight: 800;
       color: #1f3b2c;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       line-height: 1.3;
-      letter-spacing: -0.2px;
-      border-left: 3px solid #2d6a4f;
-      padding-left: 10px;
     }
 
-    .specs-container {
-      margin-bottom: 12px;
-      flex: 1;
-      background: #f8faf6;
-      border-radius: 18px;
-      padding: 10px 12px;
-    }
-
-    .spec-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 7px 0;
-      border-bottom: 1px solid #e2ecd9;
-    }
-
-    .spec-row:last-child {
-      border-bottom: none;
-    }
-
-    .spec-label {
-      font-weight: 700;
-      color: #2d5a44;
-      min-width: 75px;
-      font-size: 10.5px;
-      letter-spacing: 0.3px;
-      text-transform: uppercase;
-    }
-
-    .spec-value {
-      color: #2c3e2f;
-      text-align: right;
-      font-weight: 600;
-      font-size: 11px;
-      word-break: break-word;
-      flex: 1;
-      margin-left: 8px;
-    }
-
-    .price-stock-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px solid #e2ecd9;
-    }
-
-    .price {
-      font-size: 20px;
+    .card-price {
+      font-size: 18px;
       font-weight: 800;
       color: #2d6a4f;
-      letter-spacing: -0.2px;
     }
 
-    .stock-badge {
-      font-size: 10px;
-      font-weight: 700;
-      color: #2b6e4c;
-      background: #e2f3e4;
-      padding: 4px 12px;
-      border-radius: 40px;
-      letter-spacing: 0.3px;
+    .view-details {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #86bf8c;
+      font-weight: 500;
+      text-align: center;
+      border-top: 1px solid #e2ecd9;
+      padding-top: 10px;
     }
 
-    .in-stock-badge {
-      display: inline-block;
-      margin-top: 8px;
-      font-size: 9px;
-      font-weight: 700;
-      color: #2b6e4c;
-      background: #e2f3e4;
-      padding: 4px 12px;
-      border-radius: 40px;
-      align-self: flex-start;
-    }
-
+    /* Modal Styles */
     .modal {
       display: none;
       position: fixed;
@@ -554,21 +508,16 @@
         aspect-ratio: 4 / 3;
       }
       
-      .laptop-name {
-        font-size: 14px;
+      .card-model {
+        font-size: 13px;
       }
       
-      .spec-label {
-        font-size: 9px;
-        min-width: 65px;
+      .card-price {
+        font-size: 16px;
       }
       
-      .spec-value {
-        font-size: 9.5px;
-      }
-      
-      .price {
-        font-size: 17px;
+      .card-brand {
+        font-size: 10px;
       }
       
       .modal-content {
@@ -603,7 +552,7 @@
 
   <div class="find-title">✨ Find Your Perfect Laptop</div>
 
-  <input type="text" id="searchInput" class="search-box" placeholder="Search by brand, model, or processor..." autocomplete="off">
+  <input type="text" id="searchInput" class="search-box" placeholder="Search by brand or model..." autocomplete="off">
 
   <div id="laptopsContainer" class="laptops-grid"></div>
 
@@ -613,7 +562,7 @@
 
 </div>
 
-<!-- Modal with Image Slider -->
+<!-- Modal with Image Slider (shows full specifications when clicked) -->
 <div id="imageModal" class="modal">
   <div class="modal-content">
     <span class="close-modal">&times;</span>
@@ -647,6 +596,8 @@
 <script>
   // ============================================
   // PRODUCT DATA - Edit this array to add/remove laptops
+  // Only Brand, Model, and Price shown on card
+  // All specifications visible when you click on the card
   // ============================================
   const products = [
     {
@@ -728,11 +679,48 @@
         "assets/laptop imgs/asus-x540y-3.jpg",
         "assets/laptop imgs/asus-x540y-4.jpg"
       ]
+    },
+    {
+      id: 5,
+      name: "Dell Latitude 5480",
+      brand: "Dell",
+      model: "Latitude 5480",
+      processor: "Intel Core i5-7300U",
+      ram: "16GB DDR4",
+      storage: "512GB NVMe SSD",
+      graphics: "Intel HD 620",
+      screen: '14" FHD',
+      price: 22500,
+      stock: "2 available",
+      thumbnail: "assets/laptop imgs/dell-5480.jpg",
+      images: [
+        "assets/laptop imgs/dell-5480-1.jpg",
+        "assets/laptop imgs/dell-5480-2.jpg",
+        "assets/laptop imgs/dell-5480-3.jpg"
+      ]
+    },
+    {
+      id: 6,
+      name: "HP ProBook 450 G5",
+      brand: "HP",
+      model: "ProBook 450 G5",
+      processor: "Intel Core i5-8250U",
+      ram: "8GB DDR4",
+      storage: "256GB SSD",
+      graphics: "Intel UHD 620",
+      screen: '15.6" FHD',
+      price: 19900,
+      stock: "1 available",
+      thumbnail: "assets/laptop imgs/hp-probook.jpg",
+      images: [
+        "assets/laptop imgs/hp-probook-1.jpg",
+        "assets/laptop imgs/hp-probook-2.jpg"
+      ]
     }
   ];
 
   // ============================================
-  // APPLICATION LOGIC - Do not edit below unless you know what you're doing
+  // APPLICATION LOGIC
   // ============================================
   let currentProduct = null;
   let currentImageIndex = 0;
@@ -767,13 +755,12 @@
       filtered = products.filter(p => 
         p.name.toLowerCase().includes(term) || 
         p.brand.toLowerCase().includes(term) ||
-        p.model.toLowerCase().includes(term) ||
-        p.processor.toLowerCase().includes(term)
+        p.model.toLowerCase().includes(term)
       );
     }
     
     if (filtered.length === 0) {
-      container.innerHTML = '<div class="no-results">🔍 No laptops found. Try "Lenovo" or "Asus"</div>';
+      container.innerHTML = '<div class="no-results">🔍 No laptops found. Try "Lenovo", "Dell", or "HP"</div>';
       return;
     }
     
@@ -782,40 +769,14 @@
         <div class="image-wrapper">
           <img src="${product.thumbnail}" alt="${product.name}" class="laptop-image" loading="lazy" onerror="this.src='https://placehold.co/600x450/2d6a4f/white?text=${product.name.split(' ')[0]}'; this.style.objectFit='contain'">
         </div>
-        <div class="laptop-name">${product.name}</div>
-        
-        <div class="specs-container">
-          <div class="spec-row">
-            <span class="spec-label">BRAND</span>
-            <span class="spec-value">${product.brand}</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">MODEL</span>
-            <span class="spec-value">${product.model}</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">PROCESSOR</span>
-            <span class="spec-value">${product.processor}</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">RAM</span>
-            <span class="spec-value">${product.ram}</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">STORAGE</span>
-            <span class="spec-value">${product.storage}</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">GRAPHICS</span>
-            <span class="spec-value">${product.graphics}</span>
-          </div>
+        <div class="card-info">
+          <div class="card-brand">${product.brand}</div>
+          <div class="card-model">${product.model}</div>
+          <div class="card-price">${formatPrice(product.price)}</div>
         </div>
-        
-        <div class="price-stock-row">
-          <span class="price">${formatPrice(product.price)}</span>
-          <span class="stock-badge">📦 ${product.stock}</span>
+        <div class="view-details">
+          👆 Tap to view full specs & images
         </div>
-        <div class="in-stock-badge">✓ In Stock</div>
       </div>
     `).join('');
 
@@ -866,7 +827,7 @@
     const specsContainer = document.getElementById('modalSpecs');
     const priceContainer = document.getElementById('modalPrice');
     
-    if (titleEl) titleEl.innerText = currentProduct.name;
+    if (titleEl) titleEl.innerText = `${currentProduct.brand} ${currentProduct.model}`;
     
     const modalSpecsHtml = `
       <strong>🔧 Complete Specifications</strong><br><br>
@@ -919,7 +880,7 @@
       return;
     }
     const specsBlock = `Brand: ${currentProduct.brand}%0AModel: ${currentProduct.model}%0AProcessor: ${currentProduct.processor}%0ARAM: ${currentProduct.ram}%0AStorage: ${currentProduct.storage}%0AGraphics: ${currentProduct.graphics}%0AScreen: ${currentProduct.screen}%0AStock: ${currentProduct.stock}`;
-    const message = `Hi! I'm interested in buying: *${currentProduct.name}*%0A%0A📋 *SPECIFICATIONS*:%0A${specsBlock}%0A%0A💰 *PRICE:* ${currentProductPriceFormatted}%0A📦 *Availability:* ${currentProduct.stock}%0A%0ACan you share more details or purchase guidance?`;
+    const message = `Hi! I'm interested in buying: *${currentProduct.brand} ${currentProduct.model}*%0A%0A📋 *SPECIFICATIONS*:%0A${specsBlock}%0A%0A💰 *PRICE:* ${currentProductPriceFormatted}%0A📦 *Availability:* ${currentProduct.stock}%0A%0ACan you share more details or purchase guidance?`;
     const waUrl = `https://wa.me/${phoneNumberRaw}?text=${message}`;
     window.open(waUrl, '_blank');
   }
@@ -998,3 +959,4 @@
 </script>
 </body>
 </html>
+```
