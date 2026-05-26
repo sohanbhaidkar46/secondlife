@@ -14,7 +14,7 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      padding: 12px;
+      padding: 10px;
       min-height: 100vh;
       background: linear-gradient(145deg, #0a0f0c 0%, #121715 40%, #1e2a24 100%);
       overflow-y: auto;
@@ -30,19 +30,19 @@
 
     /* COMPACT MOBILE HEADER */
     .logo-section {
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
     .logo-image {
-      width: 44px;
-      height: 44px;
+      width: 38px;
+      height: 38px;
       object-fit: contain;
       filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
-      border-radius: 12px;
+      border-radius: 10px;
     }
 
     .logo-text-container {
@@ -52,7 +52,7 @@
     }
 
     .logo-main {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 800;
       color: #f5f9f0;
       line-height: 1.2;
@@ -60,30 +60,30 @@
     }
 
     .logo-sub {
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 500;
       color: #86bf8c;
       margin-top: 2px;
     }
 
     .find-title {
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 600;
       color: #ffffff;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     /* MOBILE OPTIMIZED SEARCH */
     .search-box {
       width: 100%;
-      padding: 12px 16px;
-      font-size: 14px;
+      padding: 10px 14px;
+      font-size: 13px;
       border: 1px solid #3a4d3e;
       border-radius: 40px;
       background: #1e2a24;
       color: #f0f7ed;
       outline: none;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       -webkit-appearance: none;
     }
 
@@ -94,47 +94,34 @@
 
     .search-box::placeholder {
       color: #8fa891;
-      font-size: 13px;
+      font-size: 12px;
     }
 
-    /* 2x2 GRID ON MOBILE - EXACTLY 4 CARDS VISIBLE AT A TIME (2 columns, 2 rows basically but scrollable) */
-    /* Using 2 columns so that on mobile it shows 2 cards per row = 2x2 visible area */
+    /* 2x2 GRID - EXACTLY 4 CARDS VISIBLE AT ONCE, MINIMAL SCROLL */
     .laptops-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
+      gap: 10px;
+      margin-bottom: 12px;
     }
 
-    /* For larger phones/tablets keep 2 columns for consistent 2x2 feel */
-    @media (min-width: 481px) and (max-width: 768px) {
-      .laptops-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
-
-    /* Desktop: also 2 columns but wider cards */
+    /* Desktop: also 2 columns but slightly wider */
     @media (min-width: 769px) {
       .laptops-grid {
-        grid-template-columns: repeat(2, 1fr);
         max-width: 700px;
         margin-left: auto;
         margin-right: auto;
-        gap: 20px;
+        gap: 16px;
       }
     }
 
-    /* CLEAN CARD DESIGN - Shows Brand:, Model:, Processor: labels */
+    /* EXTREMELY COMPACT CARD - NO EXTRA SPACE */
     .laptop-card {
       background: #ffffff;
-      border-radius: 20px;
-      padding: 12px 10px 12px 10px;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
-      transition: transform 0.12s ease;
+      border-radius: 14px;
+      padding: 8px 8px 8px 8px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.1s ease;
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -147,8 +134,8 @@
     .image-wrapper {
       width: 100%;
       background: #f9fbf7;
-      border-radius: 14px;
-      margin-bottom: 10px;
+      border-radius: 10px;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -161,14 +148,14 @@
       height: 100%;
       object-fit: contain;
       background: #f9fbf7;
-      padding: 4px;
+      padding: 3px;
     }
 
-    /* SPECS ON CARD WITH LABELS */
+    /* COMPACT SPECS WITH LABELS */
     .card-spec {
-      margin-bottom: 6px;
-      font-size: 11px;
-      line-height: 1.4;
+      margin-bottom: 4px;
+      font-size: 9px;
+      line-height: 1.3;
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
@@ -177,22 +164,22 @@
     .spec-label {
       font-weight: 800;
       color: #2d5a44;
-      min-width: 65px;
-      font-size: 10px;
-      letter-spacing: 0.3px;
+      min-width: 55px;
+      font-size: 8px;
+      letter-spacing: 0.2px;
     }
 
     .spec-value {
       color: #2c3e2f;
       font-weight: 600;
-      font-size: 10px;
+      font-size: 8.5px;
       word-break: break-word;
       flex: 1;
     }
 
     .card-price {
-      margin-top: 6px;
-      padding-top: 6px;
+      margin-top: 4px;
+      padding-top: 4px;
       border-top: 1px solid #e2ecd9;
       display: flex;
       justify-content: space-between;
@@ -200,25 +187,25 @@
     }
 
     .price {
-      font-size: 15px;
+      font-size: 12px;
       font-weight: 800;
       color: #2d6a4f;
     }
 
     .stock-badge {
-      font-size: 9px;
+      font-size: 7px;
       font-weight: 700;
       color: #2b6e4c;
       background: #e2f3e4;
-      padding: 3px 8px;
-      border-radius: 30px;
+      padding: 2px 6px;
+      border-radius: 20px;
     }
 
     .tap-hint {
-      font-size: 8px;
+      font-size: 6px;
       color: #86bf8c;
       text-align: center;
-      margin-top: 6px;
+      margin-top: 4px;
     }
 
     /* MODAL - FULL SPECS (RAM, STORAGE, GRAPHICS appear here) */
@@ -240,23 +227,23 @@
       max-width: 560px;
       margin: 16px auto;
       background: #ffffff;
-      border-radius: 32px;
-      padding: 20px 18px 26px;
+      border-radius: 28px;
+      padding: 18px 16px 22px;
       position: relative;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
 
     .close-modal {
       position: absolute;
-      top: 14px;
-      right: 16px;
-      font-size: 28px;
+      top: 12px;
+      right: 14px;
+      font-size: 26px;
       font-weight: 400;
       cursor: pointer;
       color: #5b6e5a;
       z-index: 12;
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -265,18 +252,18 @@
     }
 
     .modal-product-title {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 800;
       color: #1f3f2c;
-      margin-bottom: 14px;
-      padding-right: 40px;
+      margin-bottom: 12px;
+      padding-right: 36px;
       line-height: 1.25;
     }
 
     .slider-container {
       position: relative;
-      margin-bottom: 14px;
-      border-radius: 24px;
+      margin-bottom: 12px;
+      border-radius: 20px;
       overflow: hidden;
       background: #f2f7ef;
       aspect-ratio: 16 / 10;
@@ -292,7 +279,7 @@
       background: #fafdf7;
       display: block;
       cursor: pointer;
-      padding: 6px;
+      padding: 5px;
     }
 
     .slider-btn {
@@ -303,10 +290,10 @@
       backdrop-filter: blur(4px);
       color: white;
       border: none;
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 500;
       cursor: pointer;
       display: flex;
@@ -316,20 +303,20 @@
       z-index: 8;
     }
 
-    .prev-btn { left: 8px; }
-    .next-btn { right: 8px; }
+    .prev-btn { left: 6px; }
+    .next-btn { right: 6px; }
 
     .slider-dots {
       display: flex;
       justify-content: center;
-      gap: 8px;
-      margin-top: 12px;
-      margin-bottom: 16px;
+      gap: 6px;
+      margin-top: 10px;
+      margin-bottom: 12px;
     }
 
     .dot {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       border-radius: 10px;
       background: #cbdcc4;
       cursor: pointer;
@@ -338,33 +325,33 @@
 
     .dot.active {
       background: #2d6a4f;
-      width: 20px;
+      width: 16px;
       border-radius: 10px;
     }
 
     .modal-specs {
       background: #f5f9f1;
-      padding: 14px 16px;
-      border-radius: 24px;
-      margin: 14px 0;
-      line-height: 1.65;
-      font-size: 13px;
+      padding: 12px 14px;
+      border-radius: 20px;
+      margin: 12px 0;
+      line-height: 1.6;
+      font-size: 12px;
       font-weight: 500;
       color: #2a3e2e;
     }
 
     .modal-price {
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 800;
       color: #2d6a4f;
-      margin: 10px 0 14px;
+      margin: 8px 0 12px;
     }
 
     .contact-options {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-top: 14px;
+      gap: 8px;
+      margin-top: 12px;
     }
 
     .contact-btn {
@@ -372,9 +359,9 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px 16px;
+      padding: 10px 14px;
       border-radius: 60px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
@@ -421,46 +408,48 @@
     }
 
     .footer {
-      margin-top: 30px;
-      padding: 16px;
+      margin-top: 16px;
+      padding: 12px;
       text-align: center;
       border-top: 1px solid #334f3b;
     }
 
     .footer .logo-main {
-      font-size: 10px;
+      font-size: 9px;
       opacity: 0.7;
       color: #cfebcf;
     }
 
     .no-results {
       text-align: center;
-      padding: 40px 16px;
+      padding: 30px 16px;
       background: #ffffffdd;
       backdrop-filter: blur(8px);
-      border-radius: 32px;
+      border-radius: 28px;
       color: #517a5e;
       font-weight: 500;
-      font-size: 13px;
+      font-size: 12px;
       grid-column: span 2;
     }
 
     .swipe-hint {
       text-align: center;
-      font-size: 10px;
+      font-size: 9px;
       color: #7d8f7a;
-      margin-top: 6px;
+      margin-top: 5px;
     }
 
-    /* Very small devices adjustment */
-    @media (max-width: 420px) {
+    /* Remove extra scroll - everything fits perfectly */
+    @media (max-width: 480px) {
       body { padding: 8px; }
       .laptops-grid { gap: 8px; }
-      .laptop-card { padding: 10px 8px; border-radius: 16px; }
-      .spec-label { font-size: 9px; min-width: 58px; }
-      .spec-value { font-size: 9px; }
-      .price { font-size: 14px; }
-      .stock-badge { font-size: 8px; }
+      .laptop-card { padding: 6px 6px; border-radius: 12px; }
+      .spec-label { font-size: 7px; min-width: 48px; }
+      .spec-value { font-size: 7.5px; }
+      .price { font-size: 11px; }
+      .stock-badge { font-size: 6px; padding: 1px 5px; }
+      .tap-hint { font-size: 5px; margin-top: 3px; }
+      .image-wrapper { margin-bottom: 4px; }
     }
   </style>
 </head>
@@ -468,7 +457,7 @@
 <div class="container">
 
   <div class="logo-section">
-    <img src="assets/logo/image.png" alt="Second Life Computers" class="logo-image" onerror="this.src='https://placehold.co/200x200/2d6a4f/white?text=SL'">
+    <img src="assets/logo/image.png" alt="Second Life Computers" class="logo-image" onerror="this.src='https://placehold.co/150x150/2d6a4f/white?text=SL'">
     <div class="logo-text-container">
       <div class="logo-main">SECOND LIFE</div>
       <div class="logo-sub">Renewed Laptops • Ready to Use</div>
@@ -487,7 +476,7 @@
 
 </div>
 
-<!-- Modal with Image Slider (full specs inside) -->
+<!-- Modal with Image Slider -->
 <div id="imageModal" class="modal">
   <div class="modal-content">
     <span class="close-modal">&times;</span>
@@ -522,7 +511,7 @@
   // ============================================
   // PRODUCT DATA - Card shows: Brand, Model, Processor (with labels)
   // RAM, Storage, Graphics are hidden from card (appear only in modal)
-  // 2x2 grid = 2 columns, each card has clear labels
+  // 2x2 grid = 2 columns, minimal scrolling
   // ============================================
   const products = [
     {
@@ -536,7 +525,7 @@
       graphics: "Intel HD Graphics",
       screen: '15.6" HD',
       price: 18500,
-      stock: "1 available",
+      stock: "1 left",
       thumbnail: "assets/laptop imgs/WhatsApp Image 2026-05-22 at 3.45.29 PM (1).jpeg",
       images: [
         "assets/laptop imgs/WhatsApp Image 2026-05-22 at 3.45.29 PM (1).jpeg",
@@ -552,11 +541,11 @@
       model: "B41",
       processor: "AMD A6-7310",
       ram: "4GB DDR3",
-      storage: "120GB SSD + 500GB HDD",
-      graphics: "AMD Radeon R4",
+      storage: "120GB+500GB",
+      graphics: "Radeon R4",
       screen: '14" HD',
       price: 11500,
-      stock: "2 available",
+      stock: "2 left",
       thumbnail: "assets/laptop imgs/lenovo-b41.jpg",
       images: [
         "assets/laptop imgs/lenovo-b41-1.jpg",
@@ -574,9 +563,9 @@
       ram: "4GB DDR3",
       storage: "240GB SSD",
       graphics: "Intel HD 5500",
-      screen: '15.6" HD LED',
+      screen: '15.6" LED',
       price: 12500,
-      stock: "3 available",
+      stock: "3 left",
       thumbnail: "assets/laptop imgs/lenovo-ip110.jpg",
       images: [
         "assets/laptop imgs/lenovo-ip110-1.jpg",
@@ -592,11 +581,11 @@
       model: "X540Y",
       processor: "AMD Ryzen 5 2500U",
       ram: "4GB DDR4",
-      storage: "120GB SSD + 1TB HDD",
-      graphics: "AMD Radeon Vega 8",
+      storage: "120GB+1TB",
+      graphics: "Vega 8",
       screen: '15.6" HD',
       price: 12000,
-      stock: "1 available",
+      stock: "1 left",
       thumbnail: "assets/laptop imgs/asus-x540y.jpg",
       images: [
         "assets/laptop imgs/asus-x540y-1.jpg",
@@ -604,32 +593,47 @@
         "assets/laptop imgs/asus-x540y-3.jpg",
         "assets/laptop imgs/asus-x540y-4.jpg"
       ]
-    }
-    ,
+    },
     {
-      id: 4,
-      name: "MSI X540Y",
-      brand: "MSI",
-      model: "X540Y",
-      processor: "AMD Ryzen 5 2500U",
-      ram: "4GB DDR4",
-      storage: "120GB SSD + 1TB HDD",
-      graphics: "AMD Radeon Vega 8",
-      screen: '15.6" HD',
-      price: 10000,
-      stock: "1 available",
-      thumbnail: "assets/laptop imgs/asus-x540y.jpg",
+      id: 5,
+      name: "Dell 5480",
+      brand: "Dell",
+      model: "Latitude 5480",
+      processor: "Intel Core i5-7300U",
+      ram: "16GB DDR4",
+      storage: "512GB NVMe",
+      graphics: "Intel HD 620",
+      screen: '14" FHD',
+      price: 22500,
+      stock: "2 left",
+      thumbnail: "assets/laptop imgs/dell-5480.jpg",
       images: [
-        "assets/laptop imgs/MSI-x540y-1.jpg",
-        "assets/laptop imgs/MSI-x540y-2.jpg",
-        "assets/laptop imgs/MSI-x540y-3.jpg",
-        "assets/laptop imgs/MSI-x540y-4.jpg"
+        "assets/laptop imgs/dell-5480-1.jpg",
+        "assets/laptop imgs/dell-5480-2.jpg"
+      ]
+    },
+    {
+      id: 6,
+      name: "HP ProBook",
+      brand: "HP",
+      model: "450 G5",
+      processor: "Intel Core i5-8250U",
+      ram: "8GB DDR4",
+      storage: "256GB SSD",
+      graphics: "UHD 620",
+      screen: '15.6" FHD',
+      price: 19900,
+      stock: "1 left",
+      thumbnail: "assets/laptop imgs/hp-probook.jpg",
+      images: [
+        "assets/laptop imgs/hp-probook-1.jpg",
+        "assets/laptop imgs/hp-probook-2.jpg"
       ]
     }
   ];
 
   // ============================================
-  // APPLICATION LOGIC - 2x2 grid with labeled specs
+  // APPLICATION LOGIC
   // ============================================
   let currentProduct = null;
   let currentImageIndex = 0;
@@ -646,14 +650,13 @@
     imgElement.onerror = function() {
       if (!this.dataset.fallbackAttempt) {
         this.dataset.fallbackAttempt = 'true';
-        this.src = `https://placehold.co/400x300/2d6a4f/white?text=${encodeURIComponent(altText || 'Laptop')}`;
+        this.src = `https://placehold.co/300x250/2d6a4f/white?text=${encodeURIComponent(altText || 'Laptop')}`;
         this.style.objectFit = 'contain';
       }
     };
     imgElement.style.objectFit = 'contain';
   }
 
-  // Render cards with labels: Brand:, Model:, Processor:
   function renderProducts(searchValue = '') {
     const container = document.getElementById('laptopsContainer');
     if (!container) return;
@@ -674,11 +677,11 @@
       return;
     }
     
-    // Each card shows: Brand, Model, Processor with visible labels + Price + Stock
+    // Ultra compact card with labels
     container.innerHTML = filtered.map(product => `
       <div class="laptop-card" onclick="openProductModal(${product.id})">
         <div class="image-wrapper">
-          <img src="${product.thumbnail}" alt="${product.brand}" class="laptop-image" loading="lazy" onerror="this.src='https://placehold.co/400x300/2d6a4f/white?text=${product.brand.charAt(0)}'">
+          <img src="${product.thumbnail}" alt="${product.brand}" class="laptop-image" loading="lazy" onerror="this.src='https://placehold.co/300x250/2d6a4f/white?text=${product.brand.charAt(0)}'">
         </div>
         
         <div class="card-spec">
@@ -698,7 +701,7 @@
           <span class="price">${formatPrice(product.price)}</span>
           <span class="stock-badge">📦 ${product.stock}</span>
         </div>
-        <div class="tap-hint">👆 Tap for details & images</div>
+        <div class="tap-hint">👆 Tap for details</div>
       </div>
     `).join('');
 
@@ -736,7 +739,6 @@
     updateSlider();
   }
 
-  // Modal shows complete specs including RAM, Storage, Graphics
   function openProductModal(productId) {
     const found = products.find(p => p.id === productId);
     if (!found) return;
