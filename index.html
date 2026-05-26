@@ -171,13 +171,14 @@
       font-size: 16px;
       font-weight: 800;
       color: #1f3b2c;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       line-height: 1.3;
       letter-spacing: -0.2px;
       border-left: 3px solid #2d6a4f;
       padding-left: 10px;
     }
 
+    /* Simplified specs on card - only Brand, Model, Processor */
     .specs-container {
       margin-bottom: 12px;
       flex: 1;
@@ -647,6 +648,8 @@
 <script>
   // ============================================
   // PRODUCT DATA - Edit this array to add/remove laptops
+  // Card shows: Brand, Model, Processor, Price, Stock
+  // RAM, Storage, Graphics are hidden on card but shown in modal when clicked
   // ============================================
   const products = [
     {
@@ -728,11 +731,29 @@
         "assets/laptop imgs/asus-x540y-3.jpg",
         "assets/laptop imgs/asus-x540y-4.jpg"
       ]
+    },
+    {
+      id: 5,
+      name: "Dell Latitude 5480",
+      brand: "Dell",
+      model: "Latitude 5480",
+      processor: "Intel Core i5-7300U",
+      ram: "16GB DDR4",
+      storage: "512GB NVMe SSD",
+      graphics: "Intel HD 620",
+      screen: '14" FHD',
+      price: 22500,
+      stock: "2 available",
+      thumbnail: "assets/laptop imgs/dell-5480.jpg",
+      images: [
+        "assets/laptop imgs/dell-5480-1.jpg",
+        "assets/laptop imgs/dell-5480-2.jpg"
+      ]
     }
   ];
 
   // ============================================
-  // APPLICATION LOGIC - Do not edit below unless you know what you're doing
+  // APPLICATION LOGIC
   // ============================================
   let currentProduct = null;
   let currentImageIndex = 0;
@@ -777,6 +798,8 @@
       return;
     }
     
+    // Card now shows: Brand, Model, Processor, Price, Stock
+    // RAM, Storage, Graphics are REMOVED from card (they appear only in modal)
     container.innerHTML = filtered.map(product => `
       <div class="laptop-card" onclick="openProductModal(${product.id})">
         <div class="image-wrapper">
@@ -796,18 +819,6 @@
           <div class="spec-row">
             <span class="spec-label">PROCESSOR</span>
             <span class="spec-value">${product.processor}</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">RAM</span>
-            <span class="spec-value">${product.ram}</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">STORAGE</span>
-            <span class="spec-value">${product.storage}</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">GRAPHICS</span>
-            <span class="spec-value">${product.graphics}</span>
           </div>
         </div>
         
@@ -868,6 +879,7 @@
     
     if (titleEl) titleEl.innerText = currentProduct.name;
     
+    // Modal shows ALL specifications including RAM, Storage, Graphics
     const modalSpecsHtml = `
       <strong>🔧 Complete Specifications</strong><br><br>
       • <strong>Brand:</strong> ${currentProduct.brand}<br>
@@ -918,13 +930,13 @@
       window.open(`https://wa.me/${phoneNumberRaw}?text=Hi%2C%20I'm%20interested%20in%20laptops%20from%20Second%20Life%20Computers.`, '_blank');
       return;
     }
+    // WhatsApp message includes ALL specifications
     const specsBlock = `Brand: ${currentProduct.brand}%0AModel: ${currentProduct.model}%0AProcessor: ${currentProduct.processor}%0ARAM: ${currentProduct.ram}%0AStorage: ${currentProduct.storage}%0AGraphics: ${currentProduct.graphics}%0AScreen: ${currentProduct.screen}%0AStock: ${currentProduct.stock}`;
     const message = `Hi! I'm interested in buying: *${currentProduct.name}*%0A%0A📋 *SPECIFICATIONS*:%0A${specsBlock}%0A%0A💰 *PRICE:* ${currentProductPriceFormatted}%0A📦 *Availability:* ${currentProduct.stock}%0A%0ACan you share more details or purchase guidance?`;
     const waUrl = `https://wa.me/${phoneNumberRaw}?text=${message}`;
     window.open(waUrl, '_blank');
   }
 
-  // Make functions global for onclick handlers
   window.changeImage = changeImage;
   window.goToImage = goToImage;
   window.openProductModal = openProductModal;
@@ -933,7 +945,6 @@
   window.sendWhatsApp = sendWhatsApp;
   window.closeModal = closeModal;
 
-  // Touch swipe for slider
   let touchStartX = 0, touchEndX = 0;
   function handleTouchStart(e) {
     touchStartX = e.changedTouches[0].clientX;
@@ -957,7 +968,6 @@
     }
   }
 
-  // Initialize everything when page loads
   document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     
