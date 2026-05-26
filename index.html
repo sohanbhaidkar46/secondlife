@@ -1,5 +1,3 @@
-Here is the HTML code that creates a product catalog showing only the brand, model, and price on each card, with no additional specifications visible until you click on a card.
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +13,7 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      padding: 20px;
+      padding: 12px;
       min-height: 100vh;
       background: linear-gradient(145deg, #0a0f0c 0%, #121715 40%, #1e2a24 100%);
       overflow-y: auto;
@@ -26,24 +24,23 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 16px;
+      padding: 0 8px;
     }
 
     .logo-section {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       display: flex;
       align-items: center;
-      gap: clamp(12px, 3vw, 24px);
+      gap: clamp(10px, 3vw, 20px);
       flex-wrap: wrap;
-      backdrop-filter: blur(2px);
     }
 
     .logo-image {
-      width: clamp(48px, 9vw, 70px);
-      height: clamp(48px, 9vw, 70px);
+      width: clamp(40px, 8vw, 55px);
+      height: clamp(40px, 8vw, 55px);
       object-fit: contain;
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-      border-radius: 16px;
+      border-radius: 14px;
     }
 
     .logo-text-container {
@@ -53,162 +50,180 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
     }
 
     .logo-main {
-      font-size: clamp(20px, 6vw, 32px);
+      font-size: clamp(16px, 5vw, 26px);
       font-weight: 800;
       color: #f5f9f0;
       line-height: 1.2;
       letter-spacing: -0.3px;
-      text-shadow: 0 2px 3px rgba(0,0,0,0.2);
     }
 
     .logo-sub {
-      font-size: clamp(11px, 3.5vw, 14px);
+      font-size: clamp(9px, 3vw, 12px);
       font-weight: 500;
       color: #86bf8c;
-      margin-top: 4px;
-      letter-spacing: 0.4px;
+      margin-top: 3px;
     }
 
     .find-title {
-      font-size: clamp(20px, 6vw, 30px);
+      font-size: clamp(18px, 5vw, 26px);
       font-weight: 600;
       color: #ffffff;
-      margin-bottom: 14px;
-      letter-spacing: -0.2px;
+      margin-bottom: 12px;
     }
 
     .search-box {
       width: 100%;
-      padding: clamp(12px, 3.5vw, 16px) clamp(16px, 5vw, 22px);
-      font-size: clamp(15px, 4vw, 17px);
+      padding: clamp(10px, 3vw, 14px) clamp(14px, 4vw, 18px);
+      font-size: clamp(13px, 3.5vw, 15px);
       border: 1px solid #3a4d3e;
       border-radius: 60px;
       background: #1e2a24;
       color: #f0f7ed;
       outline: none;
-      margin-bottom: 28px;
-      transition: all 0.2s ease;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
     }
 
     .search-box:focus {
       border-color: #5e9b6e;
       box-shadow: 0 0 0 3px rgba(94, 155, 110, 0.35);
-      background: #1f2f28;
     }
 
     .search-box::placeholder {
       color: #8fa891;
-      font-weight: 400;
     }
 
+    /* 4 cards per row on mobile, 2 on tablet, 2 on desktop */
     .laptops-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      margin-bottom: 28px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
     }
 
-    @media (min-width: 640px) {
-      .laptops-grid {
-        gap: 22px;
-      }
-    }
-
-    @media (min-width: 900px) {
+    /* Tablet: 2 cards per row */
+    @media (max-width: 768px) and (min-width: 481px) {
       .laptops-grid {
         grid-template-columns: repeat(2, 1fr);
-        max-width: 860px;
-        margin-left: auto;
-        margin-right: auto;
-        gap: 28px;
+        gap: 14px;
       }
     }
 
+    /* Mobile: 4 cards per row (compact) */
+    @media (max-width: 480px) {
+      .laptops-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+    }
+
+    /* Desktop: 2 cards per row centered */
+    @media (min-width: 1024px) {
+      .laptops-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 20px;
+      }
+    }
+
+    /* Compact Card Style - Small and Clean */
     .laptop-card {
       background: #ffffff;
-      border-radius: 28px;
-      padding: 16px 14px 14px 14px;
-      box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.2);
-      border: 1px solid #eef3e9;
-      transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
+      border-radius: 16px;
+      padding: 8px 6px 8px 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
       cursor: pointer;
+      text-align: center;
     }
 
     .laptop-card:active {
-      transform: scale(0.98);
-    }
-
-    .laptop-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 24px 32px -14px rgba(0, 0, 0, 0.25);
-      border-color: #cde0cf;
+      transform: scale(0.96);
     }
 
     .image-wrapper {
       width: 100%;
       background: #f9fbf7;
-      border-radius: 20px;
-      margin-bottom: 12px;
+      border-radius: 12px;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 1 / 1;
     }
 
     .laptop-image {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      transition: transform 0.2s;
       background: #f9fbf7;
+      padding: 4px;
     }
 
-    /* Simple info on card - only brand, model, price */
-    .card-info {
-      text-align: center;
-      padding: 8px 0;
-    }
-
+    /* Compact text on card */
     .card-brand {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 9px;
+      font-weight: 700;
       color: #2d6a4f;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       text-transform: uppercase;
-      margin-bottom: 5px;
+      margin-bottom: 2px;
     }
 
     .card-model {
-      font-size: 15px;
+      font-size: 10px;
       font-weight: 800;
       color: #1f3b2c;
-      margin-bottom: 8px;
-      line-height: 1.3;
+      line-height: 1.2;
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0 2px;
     }
 
     .card-price {
-      font-size: 18px;
+      font-size: 11px;
       font-weight: 800;
       color: #2d6a4f;
+      margin-bottom: 3px;
     }
 
-    .view-details {
-      margin-top: 10px;
-      font-size: 11px;
+    .view-icon {
+      font-size: 8px;
       color: #86bf8c;
-      font-weight: 500;
-      text-align: center;
-      border-top: 1px solid #e2ecd9;
-      padding-top: 10px;
+      margin-top: 2px;
     }
 
-    /* Modal Styles */
+    /* Mobile extra small adjustments */
+    @media (max-width: 480px) {
+      .card-brand {
+        font-size: 7px;
+      }
+      .card-model {
+        font-size: 8px;
+        white-space: normal;
+        word-break: break-word;
+        line-height: 1.1;
+      }
+      .card-price {
+        font-size: 9px;
+      }
+      .view-icon {
+        font-size: 6px;
+      }
+      .laptop-card {
+        padding: 6px 4px;
+        border-radius: 12px;
+      }
+      .image-wrapper {
+        border-radius: 10px;
+      }
+    }
+
+    /* Modal Styles - unchanged, full details when opened */
     .modal {
       display: none;
       position: fixed;
@@ -455,27 +470,27 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
     }
 
     .footer {
-      margin-top: 45px;
-      padding: 22px;
+      margin-top: 35px;
+      padding: 18px;
       text-align: center;
       border-top: 1px solid #334f3b;
     }
 
     .footer .logo-main {
-      font-size: 14px;
+      font-size: 12px;
       opacity: 0.7;
       color: #cfebcf;
     }
 
     .no-results {
       text-align: center;
-      padding: 48px 24px;
+      padding: 40px 20px;
       background: #ffffffdd;
       backdrop-filter: blur(8px);
       border-radius: 48px;
       color: #517a5e;
       font-weight: 500;
-      grid-column: span 2;
+      grid-column: span 4;
     }
 
     .swipe-hint {
@@ -486,52 +501,18 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
       letter-spacing: 0.3px;
     }
 
-    ::-webkit-scrollbar {
-      width: 5px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #1a241f;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #5b8c69;
-      border-radius: 10px;
-    }
-
-    @media (max-width: 550px) {
-      body {
-        padding: 14px;
+    @media (max-width: 480px) {
+      .no-results {
+        grid-column: span 4;
+        padding: 25px 12px;
+        font-size: 12px;
       }
-      
-      .image-wrapper {
-        aspect-ratio: 4 / 3;
-      }
-      
-      .card-model {
-        font-size: 13px;
-      }
-      
-      .card-price {
-        font-size: 16px;
-      }
-      
-      .card-brand {
-        font-size: 10px;
-      }
-      
       .modal-content {
-        padding: 20px 16px 24px;
+        padding: 18px 16px 24px;
       }
-      
       .modal-product-title {
         font-size: 20px;
       }
-      
-      .slider-container {
-        aspect-ratio: 16 / 10;
-      }
-      
       .contact-btn {
         padding: 12px 14px;
         font-size: 14px;
@@ -550,7 +531,7 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
     </div>
   </div>
 
-  <div class="find-title">✨ Find Your Perfect Laptop</div>
+  <div class="find-title">✨ Find Your Laptop</div>
 
   <input type="text" id="searchInput" class="search-box" placeholder="Search by brand or model..." autocomplete="off">
 
@@ -596,8 +577,8 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
 <script>
   // ============================================
   // PRODUCT DATA - Edit this array to add/remove laptops
-  // Only Brand, Model, and Price shown on card
-  // All specifications visible when you click on the card
+  // Card shows only: Brand, Model, Price
+  // Click card to see full specifications & images
   // ============================================
   const products = [
     {
@@ -684,7 +665,7 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
       id: 5,
       name: "Dell Latitude 5480",
       brand: "Dell",
-      model: "Latitude 5480",
+      model: "5480",
       processor: "Intel Core i5-7300U",
       ram: "16GB DDR4",
       storage: "512GB NVMe SSD",
@@ -695,15 +676,14 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
       thumbnail: "assets/laptop imgs/dell-5480.jpg",
       images: [
         "assets/laptop imgs/dell-5480-1.jpg",
-        "assets/laptop imgs/dell-5480-2.jpg",
-        "assets/laptop imgs/dell-5480-3.jpg"
+        "assets/laptop imgs/dell-5480-2.jpg"
       ]
     },
     {
       id: 6,
       name: "HP ProBook 450 G5",
       brand: "HP",
-      model: "ProBook 450 G5",
+      model: "450 G5",
       processor: "Intel Core i5-8250U",
       ram: "8GB DDR4",
       storage: "256GB SSD",
@@ -715,6 +695,42 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
       images: [
         "assets/laptop imgs/hp-probook-1.jpg",
         "assets/laptop imgs/hp-probook-2.jpg"
+      ]
+    },
+    {
+      id: 7,
+      name: "Acer Swift 3",
+      brand: "Acer",
+      model: "Swift 3",
+      processor: "AMD Ryzen 5 4500U",
+      ram: "8GB DDR4",
+      storage: "512GB SSD",
+      graphics: "AMD Radeon",
+      screen: '14" FHD',
+      price: 28900,
+      stock: "1 available",
+      thumbnail: "assets/laptop imgs/acer-swift3.jpg",
+      images: [
+        "assets/laptop imgs/acer-swift3-1.jpg",
+        "assets/laptop imgs/acer-swift3-2.jpg"
+      ]
+    },
+    {
+      id: 8,
+      name: "MSI Modern 14",
+      brand: "MSI",
+      model: "Modern 14",
+      processor: "Intel Core i7-10510U",
+      ram: "16GB DDR4",
+      storage: "512GB SSD",
+      graphics: "NVIDIA MX250",
+      screen: '14" FHD',
+      price: 35900,
+      stock: "1 available",
+      thumbnail: "assets/laptop imgs/msi-modern.jpg",
+      images: [
+        "assets/laptop imgs/msi-modern-1.jpg",
+        "assets/laptop imgs/msi-modern-2.jpg"
       ]
     }
   ];
@@ -738,7 +754,7 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
       if (!this.dataset.fallbackAttempt) {
         this.dataset.fallbackAttempt = 'true';
         const modelName = altText ? altText.split(' ')[0] : 'Laptop';
-        this.src = `https://placehold.co/600x450/2d6a4f/white?text=${encodeURIComponent(modelName)}+Model`;
+        this.src = `https://placehold.co/400x400/2d6a4f/white?text=${encodeURIComponent(modelName)}`;
         this.style.objectFit = 'contain';
       }
     };
@@ -764,19 +780,16 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
       return;
     }
     
+    // Compact card - only brand, model, price
     container.innerHTML = filtered.map(product => `
       <div class="laptop-card" onclick="openProductModal(${product.id})">
         <div class="image-wrapper">
-          <img src="${product.thumbnail}" alt="${product.name}" class="laptop-image" loading="lazy" onerror="this.src='https://placehold.co/600x450/2d6a4f/white?text=${product.name.split(' ')[0]}'; this.style.objectFit='contain'">
+          <img src="${product.thumbnail}" alt="${product.brand} ${product.model}" class="laptop-image" loading="lazy" onerror="this.src='https://placehold.co/400x400/2d6a4f/white?text=${product.brand.charAt(0)}${product.model.charAt(0)}'; this.style.objectFit='contain'">
         </div>
-        <div class="card-info">
-          <div class="card-brand">${product.brand}</div>
-          <div class="card-model">${product.model}</div>
-          <div class="card-price">${formatPrice(product.price)}</div>
-        </div>
-        <div class="view-details">
-          👆 Tap to view full specs & images
-        </div>
+        <div class="card-brand">${product.brand}</div>
+        <div class="card-model">${product.model}</div>
+        <div class="card-price">${formatPrice(product.price)}</div>
+        <div class="view-icon">👆</div>
       </div>
     `).join('');
 
@@ -885,7 +898,6 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
     window.open(waUrl, '_blank');
   }
 
-  // Make functions global for onclick handlers
   window.changeImage = changeImage;
   window.goToImage = goToImage;
   window.openProductModal = openProductModal;
@@ -894,7 +906,6 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
   window.sendWhatsApp = sendWhatsApp;
   window.closeModal = closeModal;
 
-  // Touch swipe for slider
   let touchStartX = 0, touchEndX = 0;
   function handleTouchStart(e) {
     touchStartX = e.changedTouches[0].clientX;
@@ -918,7 +929,6 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
     }
   }
 
-  // Initialize everything when page loads
   document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     
@@ -959,4 +969,3 @@ Here is the HTML code that creates a product catalog showing only the brand, mod
 </script>
 </body>
 </html>
-```
